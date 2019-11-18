@@ -5,9 +5,6 @@ import android.os.*;
 import android.widget.*;
 import android.view.View;
 import android.view.View.OnClickListener;
-//import android.view.GestureDetector.*;
-
-
 
 public class NewActivity extends Activity
 {
@@ -25,19 +22,19 @@ public class NewActivity extends Activity
         this.edt=(EditText)super.findViewById(R.id.edt);
         //获取确定按钮组件
         this.btn=(Button)super.findViewById((R.id.btn));
+//        注册事件处理函数
         btn.setOnClickListener(new ShowListener());
     }
-    //定义监听处理事件
+//    定义监听处理事件
     private class ShowListener implements OnClickListener
     {
-
         @Override
         public void onClick(View V)
         {
-            // TODO: Implement this method
+//            获取编辑框的输入内容
             String sum=edt.getText().toString();
+//            把文本框获取到的内容设置给文本显示组件
             showView.setText(sum);
-
         }
     }
 }

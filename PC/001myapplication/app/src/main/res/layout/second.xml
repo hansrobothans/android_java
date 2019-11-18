@@ -7,13 +7,11 @@
     <TextView
         android:text="第二个界面"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txt"/>
+        android:layout_height="wrap_content"/>
     <Button
         android:text="上一个"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="onButtonClick"
-        android:id="@+id/btn"/>
+        android:onClick="onButtonClick"/>
 
 </LinearLayout>
