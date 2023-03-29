@@ -16,7 +16,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearnAndroid"
         tools:targetApi="31">
-
         <activity android:name=".T01_BluetoothSPP" />
         <activity android:name=".S0401_BaseActivity2" />
         <activity android:name=".S0402_ActivityLifeCycle2" />
@@ -25,7 +24,7 @@
         <activity android:name=".S0404_HealthTag2" />
         <activity android:name=".S0604_TripCode2" />
         <activity
-            android:name=".S0704_ViewPagerTest"
+            android:name=".S0705_SelectorTest"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
