@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    always：总是在标题栏上显示菜单图标-->
+    <item android:id="@+id/menu1"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="always"
+        android:title="加入" />
+
+<!--    ifRoom：如果右侧有空间，该项就显示在标题栏上-->
+    <item android:id="@+id/menu2"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="ifRoom"
+        android:title="提示" />
+
+<!--    never：从不在标题栏上直接显示，一直放在溢出的菜单列表中-->
+    <item android:id="@+id/menu3"
+        android:icon="@mipmap/ic_launcher"
+        app:showAsAction="never"
+        android:title="退出" />
+
+    <item android:id="@+id/search"
+        android:icon="@mipmap/ic_launcher_round"
+        app:showAsAction="always"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="搜索" />
+
+<!--    withText：如果能在标题栏上显示，除了显示图标，还要显示文字说明-->
+<!--    collapseActionView：操作视图折叠为一个按钮，点击该按钮在展开操作视图，主要用于设置SearchView-->
+</menu>
