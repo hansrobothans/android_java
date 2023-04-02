@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
     <style>
       pre[data-line] {
         position: relative;
@@ -24,10 +21,10 @@
         font-family: "Courier New", Courier, monospace;
       }
     </style>
-  </head>
-  <body>
-    <pre data-line="1-3"><code>var x = 1;
-var y = 2;
-var z = x + y;</code></pre>
-  </body>
-</html>
+    <pre data-line="1-3">
+    <code>
+      var x = 1;
+      var y = 2;
+      var z = x + y;
+    </code>
+  </pre>
