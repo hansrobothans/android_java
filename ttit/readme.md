@@ -1,3 +1,4 @@
+[TOC]
 
 # P10_MainActivity
 新建工程  
@@ -99,7 +100,7 @@ android:layout_height="0dp"
 |android:rowCount |行数|
 |android:layout_columnSpan |横跨的列数|
 |android:layout_rowSpan |横跨的行数|
-```xml
+```xml {.line-numbers}
 <!--    android:layout_gravity="fill"-->
 <!--    设置这个属性才会填充满两列-->
 ```
@@ -135,7 +136,7 @@ android:layout_height="0dp"
 * <corners android:topLeftRadius="10px"...> 这个是设置圆角的
 * <gradient> 这个是设置渐变色的,可选属性有: startColor:起始颜色 endColor:结束颜色 centerColor:中间颜色 angle:方向角度,等于0时,从左到右,然后逆时针方向转,当angle = 90度时从下往上 type:设置渐变的类型编写矩形边框的Drawable：
 * 编写矩形边框的Drawable：
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape
    xmlns:android="http://schemas.android.com/apk/res/android"
@@ -156,7 +157,7 @@ android:layout_height="0dp"
 </shape>
 ```
 * 编写圆角矩形边框的Drawable
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape
   xmlns:android="http://schemas.android.com/apk/res/android"
@@ -194,7 +195,7 @@ android:layout_height="0dp"
 在Android开发中，我们可以使用shape定义各种各样的形状，也可以定义一些图片资源。相对于传统图片来说，使用shape可以减少资源占用，减少安装包大小，还能够很好地适配不同尺寸的手机。  
 ## 1. shape属性
 shape 属性基本语法示例：  
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape
   xmlns:android="http://schemas.android.com/apk/res/android"
@@ -236,7 +237,7 @@ shape 属性基本语法示例：
 Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，描边，大小，边距； shape 子标签就可以实现这些效果， shape 子标签有下面几个属性：corners，gradient，padding，size，solid，stroke：  
 
 * **corners（圆角）**是用来字义圆角
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <corners //定义圆角
@@ -248,14 +249,14 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
 </shape>
 ```
 * **solid（填充色）**是用以指定内部填充色；
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <solid android:color="#ffff00"/> //内部填充色
 </shape>
 ```
 * **gradient（渐变）**用以定义渐变色，可以定义两色渐变和三色渐变，及渐变样式；
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <gradient
@@ -271,7 +272,7 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
 </shape>
 ```
 * **stroke（描边）**是描边属性，可以定义描边的宽度，颜色，虚实线等；
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <stroke
@@ -283,7 +284,7 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
 </shape>
 ```
 * **padding（内边距）**是用来定义内部边距
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <padding
@@ -294,7 +295,7 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
 </shape>
 ```
 * **size（大小）**标签是用来定义图形的大小的
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android" >
   <size
@@ -304,7 +305,7 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
 ```
 ## 3. 特殊属性
 Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和环形；这些都是通过 shape 标签属性来定义的， shape 标签有下面几个属性：rectangle，oval，line，ring：  
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape=["rectangle" | "oval" | "line" | "ring"] //shape的形状，默认为矩形，可以设置为矩形(rectangle)、椭圆形(oval)、线性形状(line)、环形(ring)
@@ -317,7 +318,7 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
 </shape>
 ```
 * rectangle（矩形）
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="rectangle">
@@ -325,7 +326,7 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
 </shape>
 ```
 * oval（椭圆）
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="oval">
@@ -335,7 +336,7 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
 </shape>
 ```
 * line（线）
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="line">
@@ -348,7 +349,7 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
 </shape>
 ```
 * ring（圆环）
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
   android:shape="ring"
@@ -402,7 +403,7 @@ drawable |引用的Drawable位图,我们可以把他放到最前面,就表示组
 |state_last |控件包含多个子控件时,确定最后一个子控件是否处于显示状态|
 
 * btn_bg1.xml
-```xml
+```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:drawable="@color/color1" android:state_pressed="true"/>
@@ -410,30 +411,91 @@ drawable |引用的Drawable位图,我们可以把他放到最前面,就表示组
   <item android:drawable="@color/color3" />
 </selector>
 ```
-* 
-```xml
 
+# P29_ImageViewActivity
+ImageView 见名知意，就是用来显示图像的一个View或者说控件
+需掌握的知识点：
+1. ImageView的src属性和blackground的区别；
+2. adjustViewBounds设置图像缩放时是否按长宽比
+3. scaleType设置缩放类型
+4. 最简单的绘制圆形的ImageView
+## src属性和background属性的区别
+在API文档中我们发现ImageView有两个可以设置图片的属性，分别是：src和background
+常识：  
+1. background通常指的都是背景,而src指的是内容!!  
+2. 当使用src填入图片时,是按照图片大小直接填充,并不会进行拉伸,而使用background填入图片,则是会根据ImageView给定的宽度来进行拉伸  
+## Java代码中设置blackground和src属性:
+```java {.line-numbers}
+setImageDrawable();//前景(对应src属性):
+setBackgroundDrawable();//背景(对应background属性):
+```
+## scaleType 属性 android:scaleType
+android:scaleType用于设置显示的图片如何缩放或者移动以适应ImageView的大小 
+Java代码中可以通过
+```java {.line-numbers}
+imageView.setScaleType(ImageView.ScaleType.CENTER);
+```
+来设置~ 可选值如下：
+1. fitXY:对图像的横向与纵向进行独立缩放,使得该图片完全适应ImageView,但是图片的横纵比可能会发生改变
+2. fitStart:保持纵横比缩放图片,知道较长的边与Image的编程相等,缩放完成后将图片放在ImageView的左上角
+3. fitCenter:同上,缩放后放于中间;
+4. fitEnd:同上,缩放后放于右下角;
+5. center:保持原图的大小，显示在ImageView的中心。当原图的size大于ImageView的size，超过部分裁剪处理。
+6. centerCrop:保持横纵比缩放图片,知道完全覆盖ImageView,可能会出现图片的显示不完全
+7. centerInside:保持横纵比缩放图片,直到ImageView能够完全地显示图片
+8. matrix:默认值，不改变原图的大小，从ImageView的左上角开始绘制原图， 原图超过ImageView的部分作裁剪处理
+
+# P30_RadioButtonActivity
+## RadioButton (单选按钮) 基本用法与事件处理：
+单选按钮，就是只能够选中一个，所以我们需要把RadioButton放到RadioGroup按钮组中，从而实现 单选功能！
+先熟悉下如何使用RadioButton，一个简单的性别选择的例子： 
+另外我们可以为外层RadioGroup设置orientation属性然后设置RadioButton的排列方式，是竖直还是水平
+## 获得选中的值：这里有两种方法
+1. 第一种是为 RadioButton 设置一个事件监听器 setOnCheckChangeListener
+```java {.line-numbers}
+RadioGroup radgroup = (RadioGroup) findViewById(R.id.radioGroup);
+//第一种获得单选按钮值的方法
+//为radioGroup设置一个监听器:setOnCheckedChanged()
+radgroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+   @Override
+   public void onCheckedChanged(RadioGroup group, int checkedId) {
+      RadioButton radbtn = (RadioButton) findViewById(checkedId);
+      Toast.makeText(getApplicationContext(), "按钮组值发生改变,你选了" + radbtn.getText(), Toast.LENGTH_LONG).show();
+   }
+});
+```
+PS：另外有一点要切记，要为每个 RadioButton 添加一个id，不然单选功能不会生效！！！
+2. 第二种方法是通过单击其他按钮获取选中单选按钮的值，当然我们也可以直接获取，这个看需求~
+```java {.line-numbers}
+Button btnchange = (Button) findViewById(R.id.btnpost);
+RadioGroup radgroup = (RadioGroup) findViewById(R.id.radioGroup);
+//为radioGroup设置一个监听器:setOnCheckedChanged()
+btnchange.setOnClickListener(new OnClickListener() {
+   @Override
+   public void onClick(View v) {
+      for (int i = 0; i < radgroup.getChildCount(); i++) {
+         RadioButton rd = (RadioButton) radgroup.getChildAt(i);
+         if (rd.isChecked()) {
+            Toast.makeText(getApplicationContext(), "点击提交按钮,获取你选择的是:" + rd.getText(), Toast.LENGTH_LONG).show();
+            break;
+         }
+      }
+   }
+});
+```
+代码解析： 
+这里我们为提交按钮设置了一个 setOnClickListener 事件监听器,每次点击的话遍历一次RadioGroup判断哪个按钮被选中。
+我们可以通过下述方法获得RadioButton的相关信息！
+```java {.line-numbers}
+getChildCount( )//获得按钮组中的单选按钮的数目；
+getChinldAt(i)//根据索引值获取我们的单选按钮
+isChecked( )//判断按钮是否选中
 ```
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-```xml
+* 
+```xml {.line-numbers}
 
 ```

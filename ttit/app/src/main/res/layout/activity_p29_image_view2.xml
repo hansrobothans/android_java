@@ -1,0 +1,33 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<!--    android:scaleType用于设置显示的图片如何缩放或者移动以适应ImageView的大小-->
+<!--    可选值如下：-->
+<!--    1. fitXY:对图像的横向与纵向进行独立缩放,使得该图片完全适应ImageView,但是图片的横纵比可能会发生改变-->
+<!--    2. fitStart:保持纵横比缩放图片,知道较长的边与Image的编程相等,缩放完成后将图片放在ImageView的左上角-->
+<!--    3. fitCenter:同上,缩放后放于中间;-->
+<!--    4. fitEnd:同上,缩放后放于右下角;-->
+<!--    5. center:保持原图的大小，显示在ImageView的中心。当原图的size大于ImageView的size，超过部分裁剪处理。-->
+<!--    6. centerCrop:保持横纵比缩放图片,知道完全覆盖ImageView,可能会出现图片的显示不完全-->
+<!--    7. centerInside:保持横纵比缩放图片,直到ImageView能够完全地显示图片-->
+<!--    8. matrix:默认值，不改变原图的大小，从ImageView的左上角开始绘制原图， 原图超过ImageView的部分作裁剪处理-->
+    <ImageView
+        android:layout_width="350dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:background="#ffc"
+        android:scaleType="matrix"
+        android:src="@mipmap/pen" />
+
+    <ImageView
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:background="#ffc"
+        android:scaleType="centerInside"
+        android:src="@mipmap/pic4" />
+</LinearLayout>
