@@ -492,5 +492,13 @@ getChinldAt(i)//根据索引值获取我们的单选按钮
 isChecked( )//判断按钮是否选中
 ```
 
+# P30_CheckBoxActivity
+CheckBox (复选框)  
+如题复选框，即可以同时选中多个选项，至于获得选中的值，同样有两种方式： 
+1. 为每个CheckBox添加事件：  setOnCheckedChangeListener   
+2. 弄一个按钮，在点击后，对每个checkbox进行判断:isChecked()
+
+
+
 * 
 ```xml {.line-numbers}
