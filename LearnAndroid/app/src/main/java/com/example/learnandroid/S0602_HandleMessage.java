@@ -23,6 +23,7 @@ public class S0602_HandleMessage extends AppCompatActivity {
     private int progress = 0;
 
 //    进度值是在子线程处理，而进度条是在主线程里更新
+//    新建进程变量
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler(){
 //        使用handleMessage来处理消息事,处理子线程发过来的消息

@@ -15,7 +15,7 @@ public class P30_RadioButtonActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_p30_radio_button);
-//        获取控件对象
+//        1.获取控件对象
         Button btnchange = (Button) findViewById(R.id.btnpost);
         final RadioGroup radgroup = (RadioGroup) findViewById(R.id.radioGroup);
 

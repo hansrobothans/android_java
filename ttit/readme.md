@@ -498,7 +498,65 @@ CheckBox (复选框)
 1. 为每个CheckBox添加事件：  setOnCheckedChangeListener   
 2. 弄一个按钮，在点击后，对每个checkbox进行判断:isChecked()
 
+# P31_ToggleButtonSwitchActivity
+## ToggleButton
+|属性名 |说明|
+---|---
+|android:disabledAlpha |设置按钮在禁用时的透明度|
+|android:textOff |按钮没有被选中时显示的文字|
+|android:textOn |按钮被选中时显示的文字 另外，除了这个我们还可以自己写个selector，然后设置下Background属性即可|
+## Switch
+|属性名 |说明|
+---|---
+|android:showText |设置on/off的时候是否显示文字,boolean|
+|android:splitTrack |是否设置一个间隙，让滑块与底部图片分隔,boolean|
+|android:switchMinWidth |设置开关的最小宽度|
+|android:switchPadding |设置滑块内文字的间隔|
+|android:switchTextAppearance |设置开关的文字外观|
+|android:textOff |按钮没有被选中时显示的文字|
+|android:textOn |按钮被选中时显示的文字|
+|android:textStyle |文字风格，粗体，斜体写划线那些|
+|android:track |底部的图片|
+|android:thumb |滑块的图片|
+|android:typeface |设置字体，默认支持这三种:sans, serif, monospace;除此以外还可以使用 其他字体文件(*.ttf)|
 
+# P32_ProgressBarActivity
+## 常用属性
+|属性名 |说明|
+---|---
+|android:max：|进度条的最大值|
+|android:progress：|进度条已完成进度值|
+|android:progressDrawable：|设置轨道对应的Drawable对象|
+|android:indeterminate：|如果设置成true，则进度条不精确显示进度|
+|android:indeterminateDrawable：|设置不显示进度的进度条的Drawable对象|
+|android:indeterminateDuration：|设置不精确显示进度的持续时间|
+|android:secondaryProgress：|二级进度条，类似于视频播放的一条是当前播放进度，一条是缓冲进度，前者通过progress属性进行设置！|
 
-* 
+## 对应的再Java中我们可调用下述方法：
+|方法 |说明|
+---|---
+|getMax()：|返回这个进度条的范围的上限|
+|getProgress()：|返回进度|
+|getSecondaryProgress()：|返回次要进度|
+|incrementProgressBy(int diff)：|指定增加的进度|
+|isIndeterminate()：|指示进度条是否在不确定模式下|
+|setIndeterminate(boolean indeterminate)：|设置不确定模式下|
+
+## 设置ProgressBar的样式，不同的样式会有不同的形状和模式：
+
+Widget.ProgressBar.Horizontal
+横向进度条（精确模式或模糊模式，这取决于Android:indeterminate）。
+Widget.ProgressBar
+中号的圆形进度条（模糊模式）。
+Widget.ProgressBar.Small
+小号的圆形进度条（模糊模式）。
+Widget.ProgressBar.Large
+大号的圆形进度条（模糊模式）。
+Widget.ProgressBar.Inverse
+中号的圆形进度条（模糊模式），该样式适用于亮色背景（例如白色）。
+Widget.ProgressBar.Small.Inverse
+小号的圆形进度条（模糊模式），该样式适用于亮色背景（例如白色）。
+Widget.ProgressBar.Large.Inverse
+大号的圆形进度条（模糊模式）。
+
 ```xml {.line-numbers}
