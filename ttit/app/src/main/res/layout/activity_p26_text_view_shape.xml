@@ -5,15 +5,17 @@
     android:gravity="center"
     android:orientation="vertical">
 
+<!--    android:background="@mipmap/pic01"-->
+<!--    图片背景-->
     <TextView
         android:id="@+id/tv"
         android:layout_width="400dp"
         android:layout_height="200dp"
         android:text="@string/app_name"
         android:gravity="bottom"
-        android:background="@drawable/p11_shape_fillet"
+        android:background="@drawable/p26_shape_bg"
         android:textStyle="normal"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/purple_200"
         android:textColorLink="#FF0000"
         android:autoLink="web"
         android:textSize="30sp" />

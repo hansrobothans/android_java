@@ -1,14 +1,14 @@
-package com.example.learnandroid;
+package com.example.ttit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class p10_textview_test extends AppCompatActivity {
+public class P26_TextViewShapeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.p10_textview_test);
+        setContentView(R.layout.activity_p26_text_view_shape);
     }
 }

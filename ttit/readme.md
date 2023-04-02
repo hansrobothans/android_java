@@ -76,7 +76,8 @@ android:layout_height="0dp"
 
 # P23_FrameLayoutActivity
 帧布局  
-帧布局的特点，会按照排列顺序依次覆盖
+帧布局的特点，会按照排列顺序依次覆盖  
+
 # P24_GridLayoutActivity
 网格布局  
 ## 问题一
@@ -101,4 +102,298 @@ android:layout_height="0dp"
 ```xml
 <!--    android:layout_gravity="fill"-->
 <!--    设置这个属性才会填充满两列-->
+```
+
+# P25_TextViewActivity
+## TextView (文本框)
+用于显示文本的一个控件。  
+**文本的字体尺寸单位为 sp :**  
+   sp: scaled pixels(放大像素). 主要用于字体显示。  
+## TextView 属性   
+|属性名 |作用|
+|---|----|
+|id |为TextView设置一个组件id，根据id，我们可以在Java代码中通过findViewById()的方法获取到该对象，然后进行相关属性的设置|
+|layout_width |组件的宽度|
+|layout_height |组件的高度|
+|gravity |设置控件中内容的对齐方向，TextView中是文字，ImageView中是图片等等|
+|text|设置显示的文本内容，一般我们是把字符串写到string.xml文件中，然后通过@String/xxx取得对应的字符串内容的|
+|textColor |设置字体颜色，同上，通过colors.xml资源来引用|
+|textStyle |设置字体风格，三个可选值：normal(无效果)，bold(加粗)，italic(斜体)|
+|textSize |字体大小，单位一般是用sp|
+|background |控件的背景颜色，可以理解为填充整个控件的颜色，可以是图片|
+|autoLink |识别链接类型 （web, email, phone ,map ,none, all）|
+
+# P26_TextViewShapeActivity
+文本设置边框
+
+## 实现原理：
+编写一个ShapeDrawable的资源文件！然后TextView将 background 设置为这个drawable资源即可
+## ShapeDrawable的资源文件
+* <solid android:color = "xxx"> 这个是设置背景颜色的
+* <stroke android:width = "xdp" android:color="xxx"> 这个是设置边框的粗细,以及边框颜色的
+* <padding androidLbottom = "xdp"...> 这个是设置边距的
+* <corners android:topLeftRadius="10px"...> 这个是设置圆角的
+* <gradient> 这个是设置渐变色的,可选属性有: startColor:起始颜色 endColor:结束颜色 centerColor:中间颜色 angle:方向角度,等于0时,从左到右,然后逆时针方向转,当angle = 90度时从下往上 type:设置渐变的类型编写矩形边框的Drawable：
+* 编写矩形边框的Drawable：
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+   xmlns:android="http://schemas.android.com/apk/res/android"
+   >
+<!-- 设置一个黑色边框 -->
+   <stroke android:width="2px" android:color="#000000"/>
+<!-- 渐变 -->
+   <gradient
+      android:angle="270"
+      android:endColor="#C0C0C0"
+      android:startColor="#FCD209" />
+<!-- 设置一下边距,让空间大一点 -->
+   <padding
+      android:left="5dp"
+      android:top="5dp"
+      android:right="5dp"
+      android:bottom="5dp"/>
+</shape>
+```
+* 编写圆角矩形边框的Drawable
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  >
+  <!-- 设置透明背景色 -->
+  <solid android:color="#87CEEB" />
+  <!-- 设置一个黑色边框 -->
+  <stroke
+    android:width="2px"
+    android:color="#000000" />
+  <!-- 设置四个圆角的半径 -->
+  <corners
+    android:bottomLeftRadius="10px"
+    android:bottomRightRadius="10px"
+    android:topLeftRadius="10px"
+    android:topRightRadius="10px" />
+  <!-- 设置一下边距,让空间大一点 -->
+  <padding
+    android:bottom="5dp"
+    android:left="5dp"
+    android:right="5dp"
+    android:top="5dp" />
+</shape>
+```
+* 带图片(drawableXxx)的TextView   
+
+|属性名 |作用|
+|---|---|
+|android:drawableLeft |文本左边设置图片|
+|android:drawableRight |文本右边设置图片|
+|android:drawableBottom |文本下边设置图片|
+|android:drawableTop |文本上边设置图片|
+
+# shape的使用
+在Android开发中，我们可以使用shape定义各种各样的形状，也可以定义一些图片资源。相对于传统图片来说，使用shape可以减少资源占用，减少安装包大小，还能够很好地适配不同尺寸的手机。  
+## 1. shape属性
+shape 属性基本语法示例：  
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape=["rectangle" | "oval" | "line" | "ring"] > // 定义形状
+  <corners //圆角属性
+    android:radius="integer"
+    android:topLeftRadius="integer"
+    android:topRightRadius="integer"
+    android:bottomLeftRadius="integer"
+    android:bottomRightRadius="integer" />
+  <gradient //渐变属性
+    android:angle="integer"
+    android:centerX="integer"
+    android:centerY="integer"
+    android:centerColor="integer"
+    android:endColor="color"
+    android:gradientRadius="integer"
+    android:startColor="color"
+    android:type=["linear" | "radial" | "sweep"]
+    android:useLevel=["true" | "false"] />
+  <padding //边距属性
+    android:left="integer"
+    android:top="integer"
+    android:right="integer"
+    android:bottom="integer" />
+  <size //大小属性
+    android:width="integer"
+    android:height="integer" />
+  <solid //填充属性
+    android:color="color" />
+  <stroke //描边属性
+    android:width="integer"
+    android:color="color"
+    android:dashWidth="integer"
+    android:dashGap="integer" />
+</shape>
+```
+## 2. 基本属性
+Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，描边，大小，边距； shape 子标签就可以实现这些效果， shape 子标签有下面几个属性：corners，gradient，padding，size，solid，stroke：  
+
+* **corners（圆角）**是用来字义圆角
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <corners //定义圆角
+    android:radius="10dp" //全部的圆角半径；
+    android:topLeftRadius="5dp" //左上角的圆角半径；
+    android:topRightRadius="5dp" //右上角的圆角半径；
+    android:bottomLeftRadius="5dp" //左下角的圆角半径；
+    android:bottomRightRadius="5dp" /> //右下角的圆角半径。
+</shape>
+```
+* **solid（填充色）**是用以指定内部填充色；
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <solid android:color="#ffff00"/> //内部填充色
+</shape>
+```
+* **gradient（渐变）**用以定义渐变色，可以定义两色渐变和三色渐变，及渐变样式；
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <gradient
+    android:type=["linear" | "radial" | "sweep"] //共有3中渐变类型，线性渐变（默认）/放射渐变/扫描式渐变；
+    android:angle="90" //渐变角度，必须为45的倍数，0为从左到右，90为从上到下；
+    android:centerX="0.5" //渐变中心X的相当位置，范围为0～1；
+    android:centerY="0.5" //渐变中心Y的相当位置，范围为0～1；
+    android:startColor="#24e9f2" //渐变开始点的颜色；
+    android:centerColor="#2564ef" //渐变中间点的颜色，在开始与结束点之间；
+    android:endColor="#25f1ef" //渐变结束点的颜色；
+    android:gradientRadius="5dp" //渐变的半径，只有当渐变类型为radial时才能使用；
+    android:useLevel="false" /> //使用LevelListDrawable时就要设置为true。设为false时才有渐变效果。
+</shape>
+```
+* **stroke（描边）**是描边属性，可以定义描边的宽度，颜色，虚实线等；
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <stroke
+    android:width="1dp" //描边的宽度
+    android:color="#ff0000" //描边的颜色
+    // 以下两个属性设置虚线
+    android:dashWidth="1dp" //虚线的宽度，值为0时是实线
+    android:dashGap="1dp" /> //虚线的间隔
+</shape>
+```
+* **padding（内边距）**是用来定义内部边距
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <padding
+    android:left="10dp" //左内边距；
+    android:top="10dp" //上内边距；
+    android:right="10dp" //右内边距；
+    android:bottom="10dp" /> //下内边距。
+</shape>
+```
+* **size（大小）**标签是用来定义图形的大小的
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" >
+  <size
+    android:width="50dp" //宽度
+    android:height="50dp" />// 高度
+</shape>
+```
+## 3. 特殊属性
+Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和环形；这些都是通过 shape 标签属性来定义的， shape 标签有下面几个属性：rectangle，oval，line，ring：  
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape=["rectangle" | "oval" | "line" | "ring"] //shape的形状，默认为矩形，可以设置为矩形(rectangle)、椭圆形(oval)、线性形状(line)、环形(ring)
+  //下面的属性只有在android:shape="ring"时可用：
+  android:innerRadius="10dp" // 内环的半径；
+  android:innerRadiusRatio="2" // 浮点型，以环的宽度比率来表示内环的半径；
+  android:thickness="3dp" // 环的厚度；
+  android:thicknessRatio="2" // 浮点型，以环的宽度比率来表示环的厚度；
+  android:useLevel="false"> // boolean值，如果当做是LevelListDrawable使用时值为true，否则为false。
+</shape>
+```
+* rectangle（矩形）
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="rectangle">
+  <solid android:color="@color/colorPrimary"/>
+</shape>
+```
+* oval（椭圆）
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="oval">
+  <solid android:color="@color/colorPrimary"/>
+  <size android:height="100dp"
+    android:width="100dp"/>
+</shape>
+```
+* line（线）
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="line">
+  <stroke
+    android:width="1dp"
+    android:color="@color/colorAccent"
+    android:dashGap="3dp"//虚线间距
+    android:dashWidth="4dp"/>//虚线宽度
+  <size android:height="3dp"/>
+</shape>
+```
+* ring（圆环）
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+  android:shape="ring"
+  android:useLevel="false"
+  android:innerRadius="20dp" // 内环的半径
+  android:thickness="10dp"> // 圆环宽度
+  <!--useLevel需要设置为false-->
+  <solid android:color="@color/colorAccent"/>
+</shape>
+```
+## 4. shape用法
+1. 在res/drawable下新建 shape_text.xml 文件；
+2. 在布局中引用 shape_text.xml 文件；
+
+# 
+
+
+* 
+```xml
+
+```
+* 
+```xml
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```xml
+
 ```

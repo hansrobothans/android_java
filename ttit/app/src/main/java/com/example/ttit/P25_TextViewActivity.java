@@ -1,16 +1,14 @@
-package com.example.learnandroid;
+package com.example.ttit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-
-public class p09_gridlayout_test extends AppCompatActivity {
+public class P25_TextViewActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.p09_gridlayout_test);
+        setContentView(R.layout.activity_p25_text_view);
     }
-
 }

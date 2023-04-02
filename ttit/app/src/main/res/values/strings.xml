@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ttit</string>
+    <string name="baiduLink">https://www.baidu.com</string>
 </resources>
