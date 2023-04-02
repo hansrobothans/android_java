@@ -1,33 +1,31 @@
+<!-- README.md -->
 <!DOCTYPE html>
 <html>
   <head>
     <style>
-      pre[data-line] {
-        position: relative;
-        padding-left: 3.8em;
+      .code-container {
         counter-reset: linenumber;
       }
-
-      pre[data-line] > code {
-        position: relative;
-      }
-
-      pre[data-line]:before {
-        content: counter(linenumber);
+      .code-container pre {
         counter-increment: linenumber;
-        position: absolute;
-        left: 0;
-        top: 0;
-        padding-right: 0.8em;
-        color: #ccc;
-        font-size: 1em;
-        font-family: "Courier New", Courier, monospace;
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+      .code-container pre:before {
+        content: counter(linenumber);
+        display: inline-block;
+        padding-right: 0.5em;
+        width: 2em;
+        text-align: right;
+        color: #999;
       }
     </style>
   </head>
   <body>
-    <pre data-line="1-3"><code>var x = 1;
+    <div class="code-container">
+      <pre data-line-numbers="1-3"><code>var x = 1;
 var y = 2;
 var z = x + y;</code></pre>
+    </div>
   </body>
 </html>
