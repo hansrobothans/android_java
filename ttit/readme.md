@@ -466,7 +466,7 @@ radgroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 ```
 PS：另外有一点要切记，要为每个 RadioButton 添加一个id，不然单选功能不会生效！！！
 2. 第二种方法是通过单击其他按钮获取选中单选按钮的值，当然我们也可以直接获取，这个看需求~
-```java {.line-numbers}
+```java linenos
 Button btnchange = (Button) findViewById(R.id.btnpost);
 RadioGroup radgroup = (RadioGroup) findViewById(R.id.radioGroup);
 //为radioGroup设置一个监听器:setOnCheckedChanged()
