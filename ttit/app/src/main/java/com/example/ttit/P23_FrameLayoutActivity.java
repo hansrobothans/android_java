@@ -1,14 +1,14 @@
-package com.example.learnandroid;
+package com.example.ttit;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class p08_framelayout_test extends AppCompatActivity {
+public class P23_FrameLayoutActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.p08_framelayout_test);
+        setContentView(R.layout.activity_p23_frame_layout);
     }
 }

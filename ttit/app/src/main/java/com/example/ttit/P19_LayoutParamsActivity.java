@@ -1,19 +1,18 @@
-package com.example.learnandroid;
+package com.example.ttit;
+//获取布局参数，并在log中显示出来
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
 
-public class p04_layout_params extends AppCompatActivity {
+public class P19_LayoutParamsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.p15_radiobutton);
+        setContentView(R.layout.activity_p19_layout_params);
     }
-
-//    p04_LayoutParams
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
