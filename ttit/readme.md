@@ -363,12 +363,52 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
 1. 在res/drawable下新建 shape_text.xml 文件；
 2. 在布局中引用 shape_text.xml 文件；
 
-# 
+# P27_EditTextActivity
+1. EditText 输入框，集成与TextView, 也继承其属性
+## EditText 特有属性
 
+|属姓名 |说明|
+|---|---|
+|android:hint |默认提示文本|
+|android:textColorHint |默认提示文本的颜色|
+|android:selectAllOnFocus |布尔值。点击输入框获得焦点后，获取到输入框中所有的文本内容|
+|android:inputType |对输入的数据进行限制|
+|android:minLines |设置最小行数|
+|android:maxLines |设置最大行数 PS:当输入内容超过maxline,文字会自动向上滚动！！|
+|android:singleLine |只允许单行输入，而且不会滚动|
+|android:textScaleX |设置字与字的水平间隔|
+|android:textScaleY |设置字与字的垂直间隔|
+|android:capitalizesentences：|仅第一个字母大写 ；words：每一个单词首字母大小，用空格区分单词；characters:每一个英文字母都大写|
 
-* 
+# P28_ButtonActivity
+Button(按钮)
+Button 控件继承 TextView ，拥有 TextView 的属性
+StateListDrawable 简介
+StateListDrawable 是Drawable资源的一种，可以根据不同的状态，设置不同的图片效果，关键节点 < selector > ，我们只需要将Button的 background 属性设置为该drawable资源即可轻松实现，按下 按钮时不同的按钮颜色或背景！  
+|属性名 |说明|
+|---|--|
+drawable |引用的Drawable位图,我们可以把他放到最前面,就表示组件的正常状态~|
+|state_focused |是否获得焦点|
+|state_window_focused |是否获得窗口焦点|
+|state_enabled |控件是否可用|
+|state_checkable |控件可否被勾选|
+|state_checked |控件是否被勾选|
+|state_selected |控件是否被选择,针对有滚轮的情况|
+|state_pressed |控件是否被按下|
+|state_active |控件是否处于活动状态|
+|state_single |控件包含多个子控件时,确定是否只显示一个子控件|
+|state_first |控件包含多个子控件时,确定第一个子控件是否处于显示状态|
+|state_middle |控件包含多个子控件时,确定中间一个子控件是否处于显示状态|
+|state_last |控件包含多个子控件时,确定最后一个子控件是否处于显示状态|
+
+* btn_bg1.xml
 ```xml
-
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:drawable="@color/color1" android:state_pressed="true"/>
+  <item android:drawable="@color/color4" android:state_enabled="false"/>
+  <item android:drawable="@color/color3" />
+</selector>
 ```
 * 
 ```xml
