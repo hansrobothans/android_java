@@ -501,6 +501,12 @@ isChecked( )//判断按钮是否选中
 def greet(name):
     print("Hello, " + name + "!")
 ```
+
+
+* 
+```xml {.line-numbers}
+
+```
 <script>
 document.addEventListener('DOMContentLoaded', (event) => {
   document.querySelectorAll('pre code').forEach((block) => {
@@ -508,8 +514,3 @@ document.addEventListener('DOMContentLoaded', (event) => {
   });
 });
 </script>
-
-* 
-```xml {.line-numbers}
-
-```
