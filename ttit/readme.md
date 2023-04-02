@@ -492,25 +492,5 @@ getChinldAt(i)//根据索引值获取我们的单选按钮
 isChecked( )//判断按钮是否选中
 ```
 
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github.min.css">
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/highlight.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/languages/python.min.js"></script>
-
-```python class="hljs linenums"
-def greet(name):
-    print("Hello, " + name + "!")
-```
-
-
 * 
 ```xml {.line-numbers}
-
-```
-<script>
-document.addEventListener('DOMContentLoaded', (event) => {
-  document.querySelectorAll('pre code').forEach((block) => {
-    hljs.highlightBlock(block);
-  });
-});
-</script>

@@ -1,5 +1,9 @@
-# android_java
-## AIDE
-手机上aide编辑器编辑的工程
-## LearnAndroid
-23年新学习安卓新建工程
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/styles/github.min.css">
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/highlight.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highlight.js@10.7.2/languages/python.min.js"></script>
+<script src="./js/custom.js"></script>
+
+```python class="hljs linenums"
+def greet(name):
+    print("Hello, " + name + "!")
+
