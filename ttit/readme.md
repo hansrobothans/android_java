@@ -559,4 +559,99 @@ Widget.ProgressBar.Small.Inverse
 Widget.ProgressBar.Large.Inverse
 大号的圆形进度条（模糊模式）。
 
+# P33_SeekBarActivity
+## 常用属性
+android:max="100" //滑动条的最大值  
+android:progress="60" //滑动条的当前值  
+android:secondaryProgress="70" //二级滑动条的进度  
+android:thumb = "@mipmap/sb_icon" //滑块的drawable  
+## 接着要说下SeekBar的事件了
+SeekBar.OnSeekBarChangeListener 我们只需重写三个对应的方
+法  
+onProgressChanged：进度发生改变时会触发
+onStartTrackingTouch：按住SeekBar时会触发
+onStopTrackingTouch：放开SeekBar时触发
+## SeekBar定制
+1. 滑块状态Drawable：sb_thumb.xml
 ```xml {.line-numbers}
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:state_pressed="true"
+      android:drawable="@mipmap/seekbar_thumb_pressed"/>
+   <item android:state_pressed="false"
+      android:drawable="@mipmap/seekbar_thumb_normal"/>
+</selector>
+```
+2. 条形栏Bar的Drawable：sb_bar.xml
+  这里用到一个layer-list的drawable资源！其实就是层叠图片，依次是:背景，二级进度条，当前进度：
+```xml {.line-numbers}
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+xmlns:android="http://schemas.android.com/apk/res/android">
+   <item android:id="@android:id/background">
+      <shape>
+         <solid android:color="#FFFFD042" />
+      </shape>
+   </item>
+   <item android:id="@android:id/secondaryProgress">
+      <clip>
+         <shape>
+            <solid android:color="#FFFFFFFF" />
+         </shape>
+      </clip>
+   </item>
+   <item android:id="@android:id/progress">
+      <clip>
+         <shape>
+            <solid android:color="#FF96E85D" />
+         </shape>
+      </clip>
+   </item>
+</layer-list>
+```
+3. 然后布局引入SeekBar后，设置下progressDrawable与thumb即可
+```xml {.line-numbers}
+<SeekBar
+   android:id="@+id/sb_normal"
+   android:layout_width="match_parent"
+   android:layout_height="wrap_content"
+   android:maxHeight="5.0dp"
+   android:minHeight="5.0dp"
+   android:progressDrawable="@drawable/sb_bar"
+   android:thumb="@drawable/sb_thumb"/>
+```
+
+# P34_ScrollViewActivity
+我们可以直接利用ScrollView给我们提供的:fullScroll()方法：
+```java {.line-numbers}
+scrollView.fullScroll(ScrollView.FOCUS_DOWN);//滚动到底部
+scrollView.fullScroll(ScrollView.FOCUS_UP);//滚动到顶部
+
+//设置滚动速度:
+//继承ScrollView，然后重写一个 public void fling (int velocityY)的方法：
+@Override
+public void fling(int velocityY) {
+super.fling(velocityY / 2); //速度变为原来的一半
+} 
+//tips: ScrollView控件中只能包含一个View或一个ViewGroup
+```
+
+```xml {.line-numbers}
+<!-- 隐藏滑块: -->
+android:scrollbars="none"
+```
+
+
+
+
+
+
+
+
+
+
+
+
+```xml {.line-numbers}
+
+```

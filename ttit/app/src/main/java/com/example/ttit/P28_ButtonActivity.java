@@ -1,5 +1,10 @@
 package com.example.ttit;
 
+//1. 声明按钮控件
+//2. 绑定按钮控件
+//3. 实现监听按钮事件
+//4. 注册监听事件
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
