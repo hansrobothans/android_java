@@ -1,4 +1,6 @@
-package com.example.learnandroid;
+package com.example.ttit;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -7,22 +9,24 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-public class p22_ChronometerAcitvity extends AppCompatActivity implements View.OnClickListener, Chronometer.OnChronometerTickListener {
-
+//1.实现接口
+public class P35_ChronometerActivity extends AppCompatActivity implements View.OnClickListener, Chronometer.OnChronometerTickListener {
+//    2.声明控件
     private Button btn_start, btn_stop, btn_base, btn_format;
     private Chronometer chronometer;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.p22_chronometer_layout);
-        initView();
-    }
+        setContentView(R.layout.activity_p35_chronometer);
 
+//        7.调用初始化控件方法，初始化控件
+        initView();
+//        8.运行
+    }
+//    3.定义初始化控件方法
     private void initView() {
+//        4.绑定控件
         chronometer = (Chronometer) findViewById(R.id.chronometer);
         btn_start = (Button) findViewById(R.id.btnStart);
         btn_stop = (Button) findViewById(R.id.btnStop);
@@ -37,6 +41,7 @@ public class p22_ChronometerAcitvity extends AppCompatActivity implements View.O
 
     }
 
+//    5.重写按钮点击方法
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -55,6 +60,7 @@ public class p22_ChronometerAcitvity extends AppCompatActivity implements View.O
         }
     }
 
+//    6.重写计时器时间到了事件方法
     @Override
     public void onChronometerTick(Chronometer chronometer) {
         String time = chronometer.getText().toString();

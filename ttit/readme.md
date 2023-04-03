@@ -635,14 +635,68 @@ super.fling(velocityY / 2); //速度变为原来的一半
 } 
 //tips: ScrollView控件中只能包含一个View或一个ViewGroup
 ```
-
 ```xml {.line-numbers}
 <!-- 隐藏滑块: -->
 android:scrollbars="none"
 ```
 
+# P34_ScrollViewFrameLayoutActivity
+根据教程更改
+   1.将scrollView填充和清除独立成函数
+   2.修改布局，增加一个清除填充按键，实现三个按键浮于滚动条上方
+## 问题一：新增加按钮点击没有反应
+按钮新增步骤
+//1. 声明按钮控件
+//2. 绑定按钮控件
+//3. 实现监听按钮事件
+//4. 注册监听事件
+如果没有第四步，在模拟器中按钮点击是没有声音的
 
+# P35_TextClockActivity
+## TextClock(文本时钟)
+TextClock是在Android 4.2(API 17)后推出的用来替代DigitalClock的一个控件！
+TextClock可以以字符串格式显示当前的日期和时间，因此推荐在Android 4.2以后使用TextClock。  
+这个控件推荐在24进制的android系统中使用，TextClock提供了两种不同的格式：  
+一种是在24进制中显示时间和日期，  
+另一种是在12进制中显示时间和日期。大部分人喜欢默认的设置。  
 
+另外他给我们提供了下面这些方法，对应的还有get方法：
+|Attribute Name |Related Method |Description|
+|:--- | :--- | :--- |
+|属性名字 |提供方法 |描述|
+|android:format12Hour |setFormat12Hour(CharSequence) |设置12时制的格式|
+|android:format24Hour |setFormat24Hour(CharSequence) |设置24时制的格式|
+|android:timeZone |setTimeZone(String) |设置时区|
+## TextClock(文本时钟)遇到问题一：
+1. 问题：  
+   完全参考例程，在虚拟机运行正常，但是在真机运行不正常。  
+2. 原因：  
+   实测为，虚拟机应该是默认12h制，而提供的例程只写了12h的格式，所以在虚拟机上运行正常。但是真机系统设置的是24h制，所以无法正常显示，但是把真机系统调成12h制可以正常显示。也就是TextClock控件是按照12h小时还是24h显示，取决于系统设置。  
+3. 解决办法： 
+   所以需要在例程的基础上加上24h显示格式  
+
+## AnalogClock(模拟时钟)
+```xml {.line-numbers}
+android:dial //表背景图片
+android:hand_hour //表时针图片
+android:hand_minute //分时针图片
+```
+
+# P35_ChronometerActivity
+```Java {.line-numbers}
+chronometer.start();// 开始计时
+chronometer.stop();// 停止计时
+chronometer.setBase(SystemClock.elapsedRealtime());// 复位
+chronometer.setFormat("Time：%s");// 更改时间显示格式
+///计时器时间到了事件方法
+@Override
+public void onChronometerTick(Chronometer chronometer) {
+  String time = chronometer.getText().toString();
+  if (time.equals("00:00")) {
+      Toast.makeText(this, "时间到了~", Toast.LENGTH_SHORT).show();
+  }
+}
+```
 
 
 
