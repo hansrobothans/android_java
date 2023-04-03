@@ -730,6 +730,32 @@ android:minDate：最小的日期显示在这个日历视图mm / dd / yyyy格式
 android:weekDayTextAppearance：工作日的文本出现在日历标题缩写
 ```
 
+# P37_AdapterActivity
+## AdapterView即Adapter（适配器）控件
+AdapterView适配器View常用的有：
+ListView、GridView、Spinner、RecycleView  
+其内容通常是一个包含多项相同格式资源的列表，每次只显示其中一项。这个存放Adapter控件内容的列表，  
+在android被称为AdapterView（适配器View）使用的时候一般都会先给适配器填充内容。然后将已经设定好内容的适配器（Adapter）设置到AdapterView上  
+
+
+```mermaid
+	flowchart TD;
+   A(Adapter interface)--> B(ListAdapter interface);
+   A-->C(SpinnerAdapter interface);
+   B-->D(BaseAdapter);
+   C-->D(BaseAdapter);
+   D-->E(CursorAdapter);
+   E--->I(ResourceCursorAdapter);
+   I--->J(SimpleCursorAdapter);
+   D-->F(ArrayAdapter);
+   D-->G(SimpleAdapter);
+   D-->H(WrapperListAdapter interface);
+   H-->K(HeaderListAdapter);
+```
+* BaseAdapter：抽象类，实际开发中我们会继承这个类并且重写相关方法，用得最多的一个Adapter！  
+* ArrayAdapter ：支持泛型操作，最简单的一个Adapter，只能展现一行文字~  
+* SimpleAdapter ：同样具有良好扩展性的一个Adapter，可以自定义多种效果！  
+* SimpleCursorAdapter：用于显示简单文本类型的listView，一般在数据库那里会用到，不过有点过时， 不推荐使用！  
 
 
 
