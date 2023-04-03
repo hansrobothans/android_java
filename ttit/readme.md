@@ -698,7 +698,37 @@ public void onChronometerTick(Chronometer chronometer) {
 }
 ```
 
+# P36_DateTimeActivity
+## DatePicker(日期选择器)
+```xml {.line-numbers}
+android:calendarTextColor ： 日历列表的文本的颜色
+android:calendarViewShown：是否显示日历视图
+android:datePickerMode：组件外观，可选值:spinner（下拉），calendar 默认效果是后者
+android:dayOfWeekBackground：顶部星期几的背景颜色
+android:dayOfWeekTextAppearance：顶部星期几的文字颜色
+android:endYear：去年(内容)比如2010
+android:firstDayOfWeek：设置日历列表以星期几开头
+android:headerBackground：整个头部的背景颜色
+android:headerDayOfMonthTextAppearance：头部日期字体的颜色
+android:headerMonthTextAppearance：头部月份的字体颜色
+android:headerYearTextAppearance：头部年的字体颜色
+android:maxDate：最大日期显示在这个日历视图mm / dd / yyyy格式
+android:minDate：最小日期显示在这个日历视图mm / dd / yyyy格式
+android:spinnersShown：是否显示spinner
+android:startYear：设置第一年(内容)，比如19940年
+android:yearListItemTextAppearance：列表的文本出现在列表中。
+android:yearListSelectorColor：年列表选择的颜色
 
+```
+## TimePicker(时间选择器)
+
+## CalendarView(日历视图)
+```xml {.line-numbers}
+android:firstDayOfWeek：设置一个星期的第一天
+android:maxDate ：最大的日期显示在这个日历视图mm / dd / yyyy格式
+android:minDate：最小的日期显示在这个日历视图mm / dd / yyyy格式
+android:weekDayTextAppearance：工作日的文本出现在日历标题缩写
+```
 
 
 
