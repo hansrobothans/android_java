@@ -1,4 +1,85 @@
-[TOC]
+<!-- TOC -->
+
+- [P10\_MainActivity](#p10_mainactivity)
+- [P15\_ViewGroupActivity](#p15_viewgroupactivity)
+- [P19\_LayoutParamsActivity](#p19_layoutparamsactivity)
+- [P20\_PaddingMarginActivity](#p20_paddingmarginactivity)
+- [P21\_LinearLayoutActivity](#p21_linearlayoutactivity)
+  - [P21-\> LinearLayout 方向](#p21--linearlayout-方向)
+  - [P21-\> LinearLayout weigh权重](#p21--linearlayout-weigh权重)
+- [P22\_RelativeLayoutActivity](#p22_relativelayoutactivity)
+  - [P22-\> RelativeLayout属性说明：](#p22--relativelayout属性说明)
+    - [P22-\> 相对于兄弟元素](#p22--相对于兄弟元素)
+    - [P22-\> 相对于父元素](#p22--相对于父元素)
+    - [P22-\> 对齐方式](#p22--对齐方式)
+    - [P22-\> 间隔](#p22--间隔)
+- [P23\_FrameLayoutActivity](#p23_framelayoutactivity)
+- [P24\_GridLayoutActivity](#p24_gridlayoutactivity)
+  - [P24-\> GridLayout问题一](#p24--gridlayout问题一)
+  - [P24-\> GridLayout属性](#p24--gridlayout属性)
+- [P25\_TextViewActivity](#p25_textviewactivity)
+  - [P25-\> TextView (文本框)](#p25--textview-文本框)
+  - [P25-\> TextView 属性](#p25--textview-属性)
+- [Shape -\> P26\_TextViewShapeActivity](#shape---p26_textviewshapeactivity)
+- [P26\_TextViewShapeActivity](#p26_textviewshapeactivity)
+  - [P26-\> Shape实现原理：](#p26--shape实现原理)
+  - [P26-\> Shape ShapeDrawable的资源文件](#p26--shape-shapedrawable的资源文件)
+- [shape的使用](#shape的使用)
+  - [1. shape属性](#1-shape属性)
+  - [2. shape 基本属性](#2-shape-基本属性)
+  - [3. shape 特殊属性](#3-shape-特殊属性)
+  - [4. shape 用法](#4-shape-用法)
+- [P27\_EditTextActivity](#p27_edittextactivity)
+  - [P27-\> EditText 特有属性](#p27--edittext-特有属性)
+- [P28\_ButtonActivity](#p28_buttonactivity)
+- [selector](#selector)
+  - [selector颜色注意事项](#selector颜色注意事项)
+- [P29\_ImageViewActivity](#p29_imageviewactivity)
+  - [P29-\> ImageView src属性和background属性的区别](#p29--imageview-src属性和background属性的区别)
+  - [P29-\> ImageView Java代码中设置blackground和src属性:](#p29--imageview-java代码中设置blackground和src属性)
+  - [P29-\> ImageView scaleType 属性 android:scaleType](#p29--imageview-scaletype-属性-androidscaletype)
+- [P30\_RadioButtonActivity](#p30_radiobuttonactivity)
+  - [P30-\> RadioButton (单选按钮) 基本用法与事件处理：](#p30--radiobutton-单选按钮-基本用法与事件处理)
+  - [P30-\> RadioButton 获得选中的值：这里有两种方法](#p30--radiobutton-获得选中的值这里有两种方法)
+- [P30\_CheckBoxActivity](#p30_checkboxactivity)
+- [P31\_ToggleButtonSwitchActivity](#p31_togglebuttonswitchactivity)
+  - [P31-\> ToggleButton](#p31--togglebutton)
+  - [P31-\> Switch](#p31--switch)
+- [P32\_ProgressBarActivity](#p32_progressbaractivity)
+  - [P32-\> ProgressBar 常用属性](#p32--progressbar-常用属性)
+  - [P32-\> ProgressBar 对应的再Java中我们可调用下述方法：](#p32--progressbar-对应的再java中我们可调用下述方法)
+  - [P32-\> ProgressBar 设置ProgressBar的样式，不同的样式会有不同的形状和模式：](#p32--progressbar-设置progressbar的样式不同的样式会有不同的形状和模式)
+- [P33\_SeekBarActivity](#p33_seekbaractivity)
+  - [P33-\> SeekBar 常用属性](#p33--seekbar-常用属性)
+  - [P33-\> SeekBar 监听事件](#p33--seekbar-监听事件)
+  - [P33-\> SeekBar 定制](#p33--seekbar-定制)
+- [P34\_ScrollViewActivity](#p34_scrollviewactivity)
+- [P34\_ScrollViewFrameLayoutActivity](#p34_scrollviewframelayoutactivity)
+  - [问题一：新增加按钮点击没有反应](#问题一新增加按钮点击没有反应)
+- [P35\_TextClockActivity](#p35_textclockactivity)
+  - [TextClock(文本时钟)](#textclock文本时钟)
+  - [TextClock(文本时钟)遇到问题一：](#textclock文本时钟遇到问题一)
+  - [AnalogClock(模拟时钟)](#analogclock模拟时钟)
+- [P35\_ChronometerActivity](#p35_chronometeractivity)
+- [P36\_DateTimeActivity](#p36_datetimeactivity)
+  - [DatePicker(日期选择器)](#datepicker日期选择器)
+  - [TimePicker(时间选择器)](#timepicker时间选择器)
+  - [CalendarView(日历视图)](#calendarview日历视图)
+- [P37\_AdapterActivity](#p37_adapteractivity)
+  - [AdapterView即Adapter（适配器）控件](#adapterview即adapter适配器控件)
+- [P38\_ListViewActivity](#p38_listviewactivity)
+  - [P38-\> 自定义adapter步骤](#p38--自定义adapter步骤)
+  - [P38-\> BaseAdapter 优化](#p38--baseadapter-优化)
+  - [P38-\> ListView item多布局实现](#p38--listview-item多布局实现)
+  - [P38-\> ListView 表头表尾分割线的设置](#p38--listview-表头表尾分割线的设置)
+  - [P38-\> ListView 点击事件和长按事件](#p38--listview-点击事件和长按事件)
+  - [P38-\> ListView selector](#p38--listview-selector)
+  - [P38-\> ListView item中有button会被抢占焦点](#p38--listview-item中有button会被抢占焦点)
+- [value](#value)
+  - [color](#color)
+- [](#)
+
+<!-- /TOC -->
 
 # P10_MainActivity
 新建工程  
@@ -16,16 +97,16 @@
 
 # P21_LinearLayoutActivity
 线性布局  
-## 方向
+## P21-> LinearLayout 方向
 竖直  
-```
-android:orientation="vertical" 
+```xml {.line-numbers}
+android:orientation="vertical" //水平
 ``` 
 水平
 ```  
 android:orientation="horizontal"  
 ``` 
-## weigh权重
+## P21-> LinearLayout weigh权重
 ```  
 android:layout_weight="2"
 ```  
@@ -38,8 +119,8 @@ android:layout_height="0dp"
 
 # P22_RelativeLayoutActivity
 相对布局  
-## 属性说明：
-### 相对于兄弟元素  
+## P22-> RelativeLayout属性说明：
+### P22-> 相对于兄弟元素  
 |属性名称|属性含义|
 |---|----|
 |android:layout_below="@id/aaa" |在指定View的下方|
@@ -50,20 +131,20 @@ android:layout_height="0dp"
 |android:layout_alignBottom="@id/aaa" |与指定View下边界一致|
 |android:layout_alignLeft="@id/aaa" |与指定View的左边界一致|
 |android:layout_alignRight="@id/aaa" |与指定View的右边界一致|
-### 相对于父元素
+### P22-> 相对于父元素
 |属性名称 |属性含义|
 |---|----|
 |android:layout_alignParentLeft="true" |在父元素内左边|
 |android:layout_alignParentRight="true" |在父元素内右边|
 |android:layout_alignParentTop="true" |在父元素内顶部|
 |android:layout_alignParentBottom="true" |在父元素内底部|
-###  对齐方式
+###  P22-> 对齐方式
 |属性名称| 属性含义|
 |---|----|
 |android:layout_centerInParent="true" |居中布局|
 |android:layout_centerVertical="true" |垂直居中布局|
 |android:layout_centerHorizontal="true" |水平居中布局|
-###  间隔
+###  P22-> 间隔
 |属性名称 |属性含义|
 |---|----|
 |android:layout_marginBottom="" |离某元素底边缘的距离|
@@ -81,7 +162,7 @@ android:layout_height="0dp"
 
 # P24_GridLayoutActivity
 网格布局  
-## 问题一
+## P24-> GridLayout问题一
 [按钮颜色始终是蓝紫色解决办法](https://www.cnblogs.com/szyx/p/16376851.html)  
 我的解决方法：  
 默认的颜色设置来自于res/values/themes.xml与夜间模式下的res/values-night/themes.xml  
@@ -93,7 +174,7 @@ android:layout_height="0dp"
 ```html
 <style name="Theme.HelloWorld" parent="Theme.MaterialComponents.DayNight.DarkActionBar.Bridge">
 ```
-## 属性
+## P24-> GridLayout属性
 |名称 |含义|
 |---|----|
 |android:columnCount |列数|
@@ -106,11 +187,11 @@ android:layout_height="0dp"
 ```
 
 # P25_TextViewActivity
-## TextView (文本框)
+## P25-> TextView (文本框)
 用于显示文本的一个控件。  
 **文本的字体尺寸单位为 sp :**  
    sp: scaled pixels(放大像素). 主要用于字体显示。  
-## TextView 属性   
+## P25-> TextView 属性   
 |属性名 |作用|
 |---|----|
 |id |为TextView设置一个组件id，根据id，我们可以在Java代码中通过findViewById()的方法获取到该对象，然后进行相关属性的设置|
@@ -124,12 +205,13 @@ android:layout_height="0dp"
 |background |控件的背景颜色，可以理解为填充整个控件的颜色，可以是图片|
 |autoLink |识别链接类型 （web, email, phone ,map ,none, all）|
 
+# Shape -> P26_TextViewShapeActivity
 # P26_TextViewShapeActivity
 文本设置边框
 
-## 实现原理：
+## P26-> Shape实现原理：
 编写一个ShapeDrawable的资源文件！然后TextView将 background 设置为这个drawable资源即可
-## ShapeDrawable的资源文件
+## P26-> Shape ShapeDrawable的资源文件
 * <solid android:color = "xxx"> 这个是设置背景颜色的
 * <stroke android:width = "xdp" android:color="xxx"> 这个是设置边框的粗细,以及边框颜色的
 * <padding androidLbottom = "xdp"...> 这个是设置边距的
@@ -233,7 +315,7 @@ shape 属性基本语法示例：
     android:dashGap="integer" />
 </shape>
 ```
-## 2. 基本属性
+## 2. shape 基本属性
 Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，描边，大小，边距； shape 子标签就可以实现这些效果， shape 子标签有下面几个属性：corners，gradient，padding，size，solid，stroke：  
 
 * **corners（圆角）**是用来字义圆角
@@ -303,7 +385,7 @@ Shape可以定义控件的一些展示效果，例如圆角，渐变，填充，
     android:height="50dp" />// 高度
 </shape>
 ```
-## 3. 特殊属性
+## 3. shape 特殊属性
 Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和环形；这些都是通过 shape 标签属性来定义的， shape 标签有下面几个属性：rectangle，oval，line，ring：  
 ```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
@@ -360,13 +442,13 @@ Shape可以定义当前Shape的形状的，比如矩形，椭圆形，线形和�
   <solid android:color="@color/colorAccent"/>
 </shape>
 ```
-## 4. shape用法
+## 4. shape 用法
 1. 在res/drawable下新建 shape_text.xml 文件；
 2. 在布局中引用 shape_text.xml 文件；
 
 # P27_EditTextActivity
 1. EditText 输入框，集成与TextView, 也继承其属性
-## EditText 特有属性
+## P27-> EditText 特有属性
 
 |属姓名 |说明|
 |---|---|
@@ -423,17 +505,17 @@ ImageView 见名知意，就是用来显示图像的一个View或者说控件
 2. adjustViewBounds设置图像缩放时是否按长宽比
 3. scaleType设置缩放类型
 4. 最简单的绘制圆形的ImageView
-## src属性和background属性的区别
+## P29-> ImageView src属性和background属性的区别
 在API文档中我们发现ImageView有两个可以设置图片的属性，分别是：src和background
 常识：  
 1. background通常指的都是背景,而src指的是内容!!  
 2. 当使用src填入图片时,是按照图片大小直接填充,并不会进行拉伸,而使用background填入图片,则是会根据ImageView给定的宽度来进行拉伸  
-## Java代码中设置blackground和src属性:
+## P29-> ImageView Java代码中设置blackground和src属性:
 ```java {.line-numbers}
 setImageDrawable();//前景(对应src属性):
 setBackgroundDrawable();//背景(对应background属性):
 ```
-## scaleType 属性 android:scaleType
+## P29-> ImageView scaleType 属性 android:scaleType
 android:scaleType用于设置显示的图片如何缩放或者移动以适应ImageView的大小 
 Java代码中可以通过
 ```java {.line-numbers}
@@ -450,11 +532,11 @@ imageView.setScaleType(ImageView.ScaleType.CENTER);
 8. matrix:默认值，不改变原图的大小，从ImageView的左上角开始绘制原图， 原图超过ImageView的部分作裁剪处理
 
 # P30_RadioButtonActivity
-## RadioButton (单选按钮) 基本用法与事件处理：
+## P30-> RadioButton (单选按钮) 基本用法与事件处理：
 单选按钮，就是只能够选中一个，所以我们需要把RadioButton放到RadioGroup按钮组中，从而实现 单选功能！
 先熟悉下如何使用RadioButton，一个简单的性别选择的例子： 
 另外我们可以为外层RadioGroup设置orientation属性然后设置RadioButton的排列方式，是竖直还是水平
-## 获得选中的值：这里有两种方法
+## P30-> RadioButton 获得选中的值：这里有两种方法
 1. 第一种是为 RadioButton 设置一个事件监听器 setOnCheckChangeListener
 ```java {.line-numbers}
 RadioGroup radgroup = (RadioGroup) findViewById(R.id.radioGroup);
@@ -503,13 +585,13 @@ CheckBox (复选框)
 2. 弄一个按钮，在点击后，对每个checkbox进行判断:isChecked()
 
 # P31_ToggleButtonSwitchActivity
-## ToggleButton
+## P31-> ToggleButton
 |属性名 |说明|
 ---|---
 |android:disabledAlpha |设置按钮在禁用时的透明度|
 |android:textOff |按钮没有被选中时显示的文字|
 |android:textOn |按钮被选中时显示的文字 另外，除了这个我们还可以自己写个selector，然后设置下Background属性即可|
-## Switch
+## P31-> Switch
 |属性名 |说明|
 ---|---
 |android:showText |设置on/off的时候是否显示文字,boolean|
@@ -525,7 +607,7 @@ CheckBox (复选框)
 |android:typeface |设置字体，默认支持这三种:sans, serif, monospace;除此以外还可以使用 其他字体文件(*.ttf)|
 
 # P32_ProgressBarActivity
-## 常用属性
+## P32-> ProgressBar 常用属性
 |属性名 |说明|
 ---|---
 |android:max：|进度条的最大值|
@@ -536,7 +618,7 @@ CheckBox (复选框)
 |android:indeterminateDuration：|设置不精确显示进度的持续时间|
 |android:secondaryProgress：|二级进度条，类似于视频播放的一条是当前播放进度，一条是缓冲进度，前者通过progress属性进行设置！|
 
-## 对应的再Java中我们可调用下述方法：
+## P32-> ProgressBar 对应的再Java中我们可调用下述方法：
 |方法 |说明|
 ---|---
 |getMax()：|返回这个进度条的范围的上限|
@@ -546,7 +628,7 @@ CheckBox (复选框)
 |isIndeterminate()：|指示进度条是否在不确定模式下|
 |setIndeterminate(boolean indeterminate)：|设置不确定模式下|
 
-## 设置ProgressBar的样式，不同的样式会有不同的形状和模式：
+## P32-> ProgressBar 设置ProgressBar的样式，不同的样式会有不同的形状和模式：
 
 Widget.ProgressBar.Horizontal
 横向进度条（精确模式或模糊模式，这取决于Android:indeterminate）。
@@ -564,18 +646,18 @@ Widget.ProgressBar.Large.Inverse
 大号的圆形进度条（模糊模式）。
 
 # P33_SeekBarActivity
-## 常用属性
+## P33-> SeekBar 常用属性
 android:max="100" //滑动条的最大值  
 android:progress="60" //滑动条的当前值  
 android:secondaryProgress="70" //二级滑动条的进度  
 android:thumb = "@mipmap/sb_icon" //滑块的drawable  
-## 接着要说下SeekBar的事件了
+## P33-> SeekBar 监听事件
 SeekBar.OnSeekBarChangeListener 我们只需重写三个对应的方
 法  
 onProgressChanged：进度发生改变时会触发
 onStartTrackingTouch：按住SeekBar时会触发
 onStopTrackingTouch：放开SeekBar时触发
-## SeekBar定制
+## P33-> SeekBar 定制
 1. 滑块状态Drawable：sb_thumb.xml
 ```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
@@ -648,7 +730,7 @@ android:scrollbars="none"
 根据教程更改
    1.将scrollView填充和清除独立成函数
    2.修改布局，增加一个清除填充按键，实现三个按键浮于滚动条上方
-## 问题一：新增加按钮点击没有反应
+## P34-> ScrollView FrameLayout 问题一：新增加按钮点击没有反应
 按钮新增步骤
 //1. 声明按钮控件
 //2. 绑定按钮控件
@@ -657,7 +739,7 @@ android:scrollbars="none"
 如果没有第四步，在模拟器中按钮点击是没有声音的
 
 # P35_TextClockActivity
-## TextClock(文本时钟)
+## P35-> TextClock(文本时钟)
 TextClock是在Android 4.2(API 17)后推出的用来替代DigitalClock的一个控件！
 TextClock可以以字符串格式显示当前的日期和时间，因此推荐在Android 4.2以后使用TextClock。  
 这个控件推荐在24进制的android系统中使用，TextClock提供了两种不同的格式：  
@@ -671,7 +753,7 @@ TextClock可以以字符串格式显示当前的日期和时间，因此推荐�
 |android:format12Hour |setFormat12Hour(CharSequence) |设置12时制的格式|
 |android:format24Hour |setFormat24Hour(CharSequence) |设置24时制的格式|
 |android:timeZone |setTimeZone(String) |设置时区|
-## TextClock(文本时钟)遇到问题一：
+## P35-> TextClock(文本时钟)遇到问题一：
 1. 问题：  
    完全参考例程，在虚拟机运行正常，但是在真机运行不正常。  
 2. 原因：  
@@ -679,7 +761,7 @@ TextClock可以以字符串格式显示当前的日期和时间，因此推荐�
 3. 解决办法： 
    所以需要在例程的基础上加上24h显示格式  
 
-## AnalogClock(模拟时钟)
+## P35-> AnalogClock(模拟时钟)
 ```xml {.line-numbers}
 android:dial //表背景图片
 android:hand_hour //表时针图片
@@ -703,7 +785,7 @@ public void onChronometerTick(Chronometer chronometer) {
 ```
 
 # P36_DateTimeActivity
-## DatePicker(日期选择器)
+## P36-> DatePicker(日期选择器)
 ```xml {.line-numbers}
 android:calendarTextColor ： 日历列表的文本的颜色
 android:calendarViewShown：是否显示日历视图
@@ -724,9 +806,9 @@ android:yearListItemTextAppearance：列表的文本出现在列表中。
 android:yearListSelectorColor：年列表选择的颜色
 
 ```
-## TimePicker(时间选择器)
+## P36-> TimePicker(时间选择器)
 
-## CalendarView(日历视图)
+## P36-> CalendarView(日历视图)
 ```xml {.line-numbers}
 android:firstDayOfWeek：设置一个星期的第一天
 android:maxDate ：最大的日期显示在这个日历视图mm / dd / yyyy格式
@@ -735,7 +817,7 @@ android:weekDayTextAppearance：工作日的文本出现在日历标题缩写
 ```
 
 # P37_AdapterActivity
-## AdapterView即Adapter（适配器）控件
+## P37-> AdapterView即Adapter（适配器）控件
 AdapterView适配器View常用的有：
 ListView、GridView、Spinner、RecycleView  
 其内容通常是一个包含多项相同格式资源的列表，每次只显示其中一项。这个存放Adapter控件内容的列表，  
@@ -902,22 +984,7 @@ android:descendantFocusability="blocksDescendants"
 <color name="transparent">#00000000</color>
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# 
 
 ```xml {.line-numbers}
 
