@@ -402,6 +402,7 @@ drawable |引用的Drawable位图,我们可以把他放到最前面,就表示组
 |state_middle |控件包含多个子控件时,确定中间一个子控件是否处于显示状态|
 |state_last |控件包含多个子控件时,确定最后一个子控件是否处于显示状态|
 
+# selector
 * btn_bg1.xml
 ```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
@@ -411,6 +412,9 @@ drawable |引用的Drawable位图,我们可以把他放到最前面,就表示组
   <item android:drawable="@color/color3" />
 </selector>
 ```
+## selector颜色注意事项
+selector颜色不能直接用#f00
+必须用字符串引用
 
 # P29_ImageViewActivity
 ImageView 见名知意，就是用来显示图像的一个View或者说控件
@@ -756,6 +760,159 @@ ListView、GridView、Spinner、RecycleView
 * ArrayAdapter ：支持泛型操作，最简单的一个Adapter，只能展现一行文字~  
 * SimpleAdapter ：同样具有良好扩展性的一个Adapter，可以自定义多种效果！  
 * SimpleCursorAdapter：用于显示简单文本类型的listView，一般在数据库那里会用到，不过有点过时， 不推荐使用！  
+
+# P38_ListViewActivity
+## P38-> 自定义adapter步骤
+1. 新建activity layout。Activity布局文件。  
+2. 新建item layout。用于填充。  
+3. 新建item layout的实体类。用于处理item数据。  
+4. 新建继承自BaseAdapter的ItemAdapter类，并重写一下方法：  
+   BaseAdapter最基本的几个方法：  
+   1. getCount 填充的数据集数  
+   2. getItem 数据集中指定索引对应的数据项  
+   3. getItemId 指定行所对应的ID  
+   4. getView 每个Item所显示的类容  
+5. 新建Activity。
+   1. 绑定activity layout控件。
+   2. 新建item layout的实体类数组。用以填充Adapter数据。
+   3. 新建ItemAdapter对象。数据填充为item layout的实体类数组。
+   4. 控件设置Adapter为ItemAdapter对象。
+   5. 控件设置Item点击事件。
+## P38-> BaseAdapter 优化
+1. 复用ConvertView
+inflate()每次都要加载一次xml，其实这个convertView是系统提供给我们的可供复用的View的缓存对象
+```Java {.line-numbers}
+if(convertView == null){
+   convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_animal,parent,false);
+}
+
+```
+2. ViewHolder重用组件
+```Java {.line-numbers}
+// 定义内部类
+static class ViewHolder{
+   ImageView img_icon;
+   TextView txt_aName;
+   TextView txt_aSpeak;
+} 
+@Override
+public View getView(int position, View convertView, ViewGroup parent) {
+   ViewHolder holder = null;
+   if (convertView == null) {
+      convertView = LayoutInflater.from(mContext).inflate(R.layout.listview_item_layout
+                     , parent
+                     , false);
+      holder.img_icon = (ImageView)convertView.findViewById(R.id.img_icon);
+      holder.title = (TextView)convertView.findViewById(R.id.tv_title);
+      holder.content = (TextView)convertView.findViewById(R.id.tv_content);
+      convertView.setTag(holder);
+   } else {
+      holder = (ViewHolder) convertView.getTag();
+   }
+   holder.img_icon.setBackgroundResource(mData.get(position).getaIcon());
+   holder.title.setText(mData.get(position).getTitle());
+   holder.content.setText(mData.get(position).getContent());
+   return convertView;
+}
+```
+
+## P38-> ListView item多布局实现
+重写getItemViewType()方法对应View是哪个类别，
+以及getViewTypeCount()方法iew返回 总共多少个类别！
+然后再getView那里调用getItemViewType获得对应类别，再加载对应的View！
+
+## P38-> ListView 表头表尾分割线的设置
+listview作为一个列表控件，他和普通的列表一样，可以自己设置表头与表尾： 以及分割线，可供我们设置的属性如下：
+
+```xml {.line-numbers}
+footerDividersEnabled //是否在footerView(表尾)前绘制一个分隔条,默认为true
+headerDividersEnabled //是否在headerView(表头)前绘制一个分隔条,默认为true
+divider //设置分隔条,可以用颜色分割(可以采用null),也可以用drawable资源分割
+android:divider="null"
+dividerHeight //设置分隔条的高度
+scrollbar="none" //滚动条设置没有
+fadeScrollbars="false" //滚动调不自动隐藏
+```
+
+翻遍了了API发现并没有可以直接设置ListView表头或者表尾的属性，只能在Java中写代码 进行设置了，可供我们调用的方法如下：
+```java {.line-numbers}
+addHeaderView(View v) //添加headView(表头),括号中的参数是一个View对象
+addFooterView(View v) //添加footerView(表尾)，括号中的参数是一个View对象
+addHeaderView(headView, null, false) //和前面的区别：设置Header是否可以被选中
+addFooterView(View,view,false) //同上
+```
+对了，使用这个addHeaderView方法必须放在listview.setAdapter前面，否则会报错
+
+## P38-> ListView 点击事件和长按事件
+尤其需要注意长按事件的返回值
+
+```java {.line-numbers}
+//        设置点击事件
+listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+   @Override
+   public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+       Toast.makeText(mContext, "点击了第" + position + "条数据", Toast.LENGTH_SHORT).show();
+   }
+});
+//        设置长按事件
+listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+   @Override
+   public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+       Toast.makeText(mContext, "长按了第" + position + "条数据", Toast.LENGTH_SHORT).show();
+
+//                长按被触发，触发后item长按状态 自动 消失，并且不会触发点击。
+//                return true;
+//                长按被触发，松手后点击被触发。且不松手一直处于长按状态。
+       return false;
+   }
+});
+```
+## P38-> ListView selector
+ListView每一项的设定是需要全局来设置的
+1. ListView selector设置,在listview属性中加上下面
+```xml {.line-numbers}
+android:listSelector="@drawable/p38_selector_item"
+```
+2. **注意**
+selector的android:state_pressed="false"颜色应该设置为透明.要是设置为其他颜色,如粉红色,则在按下后会一直显示粉红色.
+```xml {.line-numbers}
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@color/transparent" android:state_pressed="false"/>
+    <item android:drawable="@color/teal_700" android:state_pressed="true"/>
+</selector>
+```
+
+## P38-> ListView item中有button会被抢占焦点
+1. 现象
+   当ListView item中有button时,点击item没有反馈.
+2. 原因
+   ListView item中有button时会被抢占焦点,从而导致item点击没有反馈.
+3. 解决办法
+   在行布局,也就是item最外层布局的属性中加上
+```xml {.line-numbers}
+android:descendantFocusability="blocksDescendants"
+```
+   
+
+# value
+## color
+```xml {.line-numbers}
+<!-- 透明色 -->
+<color name="transparent">#00000000</color>
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
