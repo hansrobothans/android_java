@@ -1,85 +1,4 @@
-<!-- TOC -->
-
-- [P10\_MainActivity](#p10_mainactivity)
-- [P15\_ViewGroupActivity](#p15_viewgroupactivity)
-- [P19\_LayoutParamsActivity](#p19_layoutparamsactivity)
-- [P20\_PaddingMarginActivity](#p20_paddingmarginactivity)
-- [P21\_LinearLayoutActivity](#p21_linearlayoutactivity)
-  - [P21-\> LinearLayout 方向](#p21--linearlayout-方向)
-  - [P21-\> LinearLayout weigh权重](#p21--linearlayout-weigh权重)
-- [P22\_RelativeLayoutActivity](#p22_relativelayoutactivity)
-  - [P22-\> RelativeLayout属性说明：](#p22--relativelayout属性说明)
-    - [P22-\> 相对于兄弟元素](#p22--相对于兄弟元素)
-    - [P22-\> 相对于父元素](#p22--相对于父元素)
-    - [P22-\> 对齐方式](#p22--对齐方式)
-    - [P22-\> 间隔](#p22--间隔)
-- [P23\_FrameLayoutActivity](#p23_framelayoutactivity)
-- [P24\_GridLayoutActivity](#p24_gridlayoutactivity)
-  - [P24-\> GridLayout问题一](#p24--gridlayout问题一)
-  - [P24-\> GridLayout属性](#p24--gridlayout属性)
-- [P25\_TextViewActivity](#p25_textviewactivity)
-  - [P25-\> TextView (文本框)](#p25--textview-文本框)
-  - [P25-\> TextView 属性](#p25--textview-属性)
-- [Shape -\> P26\_TextViewShapeActivity](#shape---p26_textviewshapeactivity)
-- [P26\_TextViewShapeActivity](#p26_textviewshapeactivity)
-  - [P26-\> Shape实现原理：](#p26--shape实现原理)
-  - [P26-\> Shape ShapeDrawable的资源文件](#p26--shape-shapedrawable的资源文件)
-- [shape的使用](#shape的使用)
-  - [1. shape属性](#1-shape属性)
-  - [2. shape 基本属性](#2-shape-基本属性)
-  - [3. shape 特殊属性](#3-shape-特殊属性)
-  - [4. shape 用法](#4-shape-用法)
-- [P27\_EditTextActivity](#p27_edittextactivity)
-  - [P27-\> EditText 特有属性](#p27--edittext-特有属性)
-- [P28\_ButtonActivity](#p28_buttonactivity)
-- [selector](#selector)
-  - [selector颜色注意事项](#selector颜色注意事项)
-- [P29\_ImageViewActivity](#p29_imageviewactivity)
-  - [P29-\> ImageView src属性和background属性的区别](#p29--imageview-src属性和background属性的区别)
-  - [P29-\> ImageView Java代码中设置blackground和src属性:](#p29--imageview-java代码中设置blackground和src属性)
-  - [P29-\> ImageView scaleType 属性 android:scaleType](#p29--imageview-scaletype-属性-androidscaletype)
-- [P30\_RadioButtonActivity](#p30_radiobuttonactivity)
-  - [P30-\> RadioButton (单选按钮) 基本用法与事件处理：](#p30--radiobutton-单选按钮-基本用法与事件处理)
-  - [P30-\> RadioButton 获得选中的值：这里有两种方法](#p30--radiobutton-获得选中的值这里有两种方法)
-- [P30\_CheckBoxActivity](#p30_checkboxactivity)
-- [P31\_ToggleButtonSwitchActivity](#p31_togglebuttonswitchactivity)
-  - [P31-\> ToggleButton](#p31--togglebutton)
-  - [P31-\> Switch](#p31--switch)
-- [P32\_ProgressBarActivity](#p32_progressbaractivity)
-  - [P32-\> ProgressBar 常用属性](#p32--progressbar-常用属性)
-  - [P32-\> ProgressBar 对应的再Java中我们可调用下述方法：](#p32--progressbar-对应的再java中我们可调用下述方法)
-  - [P32-\> ProgressBar 设置ProgressBar的样式，不同的样式会有不同的形状和模式：](#p32--progressbar-设置progressbar的样式不同的样式会有不同的形状和模式)
-- [P33\_SeekBarActivity](#p33_seekbaractivity)
-  - [P33-\> SeekBar 常用属性](#p33--seekbar-常用属性)
-  - [P33-\> SeekBar 监听事件](#p33--seekbar-监听事件)
-  - [P33-\> SeekBar 定制](#p33--seekbar-定制)
-- [P34\_ScrollViewActivity](#p34_scrollviewactivity)
-- [P34\_ScrollViewFrameLayoutActivity](#p34_scrollviewframelayoutactivity)
-  - [P34-\> ScrollView FrameLayout 问题一：新增加按钮点击没有反应](#p34--scrollview-framelayout-问题一新增加按钮点击没有反应)
-- [P35\_TextClockActivity](#p35_textclockactivity)
-  - [P35-\> TextClock(文本时钟)](#p35--textclock文本时钟)
-  - [P35-\> TextClock(文本时钟)遇到问题一：](#p35--textclock文本时钟遇到问题一)
-  - [P35-\> AnalogClock(模拟时钟)](#p35--analogclock模拟时钟)
-- [P35\_ChronometerActivity](#p35_chronometeractivity)
-- [P36\_DateTimeActivity](#p36_datetimeactivity)
-  - [P36-\> DatePicker(日期选择器)](#p36--datepicker日期选择器)
-  - [P36-\> TimePicker(时间选择器)](#p36--timepicker时间选择器)
-  - [P36-\> CalendarView(日历视图)](#p36--calendarview日历视图)
-- [P37\_AdapterActivity](#p37_adapteractivity)
-  - [P37-\> AdapterView即Adapter（适配器）控件](#p37--adapterview即adapter适配器控件)
-- [P38\_ListViewActivity](#p38_listviewactivity)
-  - [P38-\> 自定义adapter步骤](#p38--自定义adapter步骤)
-  - [P38-\> BaseAdapter 优化](#p38--baseadapter-优化)
-  - [P38-\> ListView item多布局实现](#p38--listview-item多布局实现)
-  - [P38-\> ListView 表头表尾分割线的设置](#p38--listview-表头表尾分割线的设置)
-  - [P38-\> ListView 点击事件和长按事件](#p38--listview-点击事件和长按事件)
-  - [P38-\> ListView selector](#p38--listview-selector)
-  - [P38-\> ListView item中有button会被抢占焦点](#p38--listview-item中有button会被抢占焦点)
-- [value](#value)
-  - [color](#color)
-- [](#)
-
-<!-- /TOC -->
+[TOC]
 
 # P10_MainActivity
 新建工程  
@@ -212,12 +131,18 @@ android:layout_height="0dp"
 ## P26-> Shape实现原理：
 编写一个ShapeDrawable的资源文件！然后TextView将 background 设置为这个drawable资源即可
 ## P26-> Shape ShapeDrawable的资源文件
-* <solid android:color = "xxx"> 这个是设置背景颜色的
-* <stroke android:width = "xdp" android:color="xxx"> 这个是设置边框的粗细,以及边框颜色的
-* <padding androidLbottom = "xdp"...> 这个是设置边距的
-* <corners android:topLeftRadius="10px"...> 这个是设置圆角的
-* <gradient> 这个是设置渐变色的,可选属性有: startColor:起始颜色 endColor:结束颜色 centerColor:中间颜色 angle:方向角度,等于0时,从左到右,然后逆时针方向转,当angle = 90度时从下往上 type:设置渐变的类型编写矩形边框的Drawable：
-* 编写矩形边框的Drawable：
+1. <solid android:color = "xxx"> 这个是设置背景颜色的
+2. <stroke android:width = "xdp" android:color="xxx"> 这个是设置边框的粗细,以及边框颜色的
+3. <padding androidLbottom = "xdp"...> 这个是设置边距的
+4. <corners android:topLeftRadius="10px"...> 这个是设置圆角的
+5. <gradient> 这个是设置渐变色的,可选属性有:
+   startColor:起始颜色 
+   endColor:结束颜色 
+   centerColor:中间颜色 
+   angle:方向角度,等于0时,从左到右,然后逆时针方向转,当angle = 90度时从下往上 
+   type:设置渐变的类型编写矩形边框的Drawable值。
+   
+6. 编写矩形边框的Drawable：
 ```xml {.line-numbers}
 <?xml version="1.0" encoding="utf-8"?>
 <shape
@@ -586,47 +511,47 @@ CheckBox (复选框)
 
 # P31_ToggleButtonSwitchActivity
 ## P31-> ToggleButton
-|属性名 |说明|
----|---
-|android:disabledAlpha |设置按钮在禁用时的透明度|
-|android:textOff |按钮没有被选中时显示的文字|
-|android:textOn |按钮被选中时显示的文字 另外，除了这个我们还可以自己写个selector，然后设置下Background属性即可|
+| 属性名                   | 说明                                                       |
+|-----------------------|----------------------------------------------------------|
+| android:disabledAlpha | 设置按钮在禁用时的透明度                                             |
+| android:textOff       | 按钮没有被选中时显示的文字                                            |
+| android:textOn        | 按钮被选中时显示的文字 另外，除了这个我们还可以自己写个selector，然后设置下Background属性即可 |
 ## P31-> Switch
-|属性名 |说明|
----|---
-|android:showText |设置on/off的时候是否显示文字,boolean|
-|android:splitTrack |是否设置一个间隙，让滑块与底部图片分隔,boolean|
-|android:switchMinWidth |设置开关的最小宽度|
-|android:switchPadding |设置滑块内文字的间隔|
-|android:switchTextAppearance |设置开关的文字外观|
-|android:textOff |按钮没有被选中时显示的文字|
-|android:textOn |按钮被选中时显示的文字|
-|android:textStyle |文字风格，粗体，斜体写划线那些|
-|android:track |底部的图片|
-|android:thumb |滑块的图片|
-|android:typeface |设置字体，默认支持这三种:sans, serif, monospace;除此以外还可以使用 其他字体文件(*.ttf)|
+| 属性名                          | 说明                                                          |
+|------------------------------|-------------------------------------------------------------|
+| android:showText             | 设置on/off的时候是否显示文字,boolean                                   |
+| android:splitTrack           | 是否设置一个间隙，让滑块与底部图片分隔,boolean                                 |
+| android:switchMinWidth       | 设置开关的最小宽度                                                   |
+| android:switchPadding        | 设置滑块内文字的间隔                                                  |
+| android:switchTextAppearance | 设置开关的文字外观                                                   |
+| android:textOff              | 按钮没有被选中时显示的文字                                               |
+| android:textOn               | 按钮被选中时显示的文字                                                 |
+| android:textStyle            | 文字风格，粗体，斜体写划线那些                                             |
+| android:track                | 底部的图片                                                       |
+| android:thumb                | 滑块的图片                                                       |
+| android:typeface             | 设置字体，默认支持这三种:sans, serif, monospace;除此以外还可以使用 其他字体文件(*.ttf) |
 
 # P32_ProgressBarActivity
 ## P32-> ProgressBar 常用属性
-|属性名 |说明|
----|---
-|android:max：|进度条的最大值|
-|android:progress：|进度条已完成进度值|
-|android:progressDrawable：|设置轨道对应的Drawable对象|
-|android:indeterminate：|如果设置成true，则进度条不精确显示进度|
-|android:indeterminateDrawable：|设置不显示进度的进度条的Drawable对象|
-|android:indeterminateDuration：|设置不精确显示进度的持续时间|
-|android:secondaryProgress：|二级进度条，类似于视频播放的一条是当前播放进度，一条是缓冲进度，前者通过progress属性进行设置！|
+| 属性名                            | 说明                                                  |
+|--------------------------------|-----------------------------------------------------|
+| android:max：                   | 进度条的最大值                                             |
+| android:progress：              | 进度条已完成进度值                                           |
+| android:progressDrawable：      | 设置轨道对应的Drawable对象                                   |
+| android:indeterminate：         | 如果设置成true，则进度条不精确显示进度                               |
+| android:indeterminateDrawable： | 设置不显示进度的进度条的Drawable对象                              |
+| android:indeterminateDuration： | 设置不精确显示进度的持续时间                                      |
+| android:secondaryProgress：     | 二级进度条，类似于视频播放的一条是当前播放进度，一条是缓冲进度，前者通过progress属性进行设置！ |
 
 ## P32-> ProgressBar 对应的再Java中我们可调用下述方法：
-|方法 |说明|
----|---
-|getMax()：|返回这个进度条的范围的上限|
-|getProgress()：|返回进度|
-|getSecondaryProgress()：|返回次要进度|
-|incrementProgressBy(int diff)：|指定增加的进度|
-|isIndeterminate()：|指示进度条是否在不确定模式下|
-|setIndeterminate(boolean indeterminate)：|设置不确定模式下|
+| 方法                                       | 说明             |
+|------------------------------------------|----------------|
+| getMax()：                                | 返回这个进度条的范围的上限  |
+| getProgress()：                           | 返回进度           |
+| getSecondaryProgress()：                  | 返回次要进度         |
+| incrementProgressBy(int diff)：           | 指定增加的进度        |
+| isIndeterminate()：                       | 指示进度条是否在不确定模式下 |
+| setIndeterminate(boolean indeterminate)： | 设置不确定模式下       |
 
 ## P32-> ProgressBar 设置ProgressBar的样式，不同的样式会有不同的形状和模式：
 
@@ -975,7 +900,7 @@ selector的android:state_pressed="false"颜色应该设置为透明.要是设置
 ```xml {.line-numbers}
 android:descendantFocusability="blocksDescendants"
 ```
-   
+
 
 # value
 ## color
@@ -983,9 +908,6 @@ android:descendantFocusability="blocksDescendants"
 <!-- 透明色 -->
 <color name="transparent">#00000000</color>
 ```
-
-# 
-
 ```xml {.line-numbers}
 
 ```
