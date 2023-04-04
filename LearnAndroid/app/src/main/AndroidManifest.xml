@@ -24,19 +24,6 @@
         <activity android:name=".S040302_ActivityDataBack2" />
         <activity android:name=".S0404_HealthTag2" />
         <activity android:name=".S0604_TripCode2" />
-        <activity
-            android:name=".p21_TextClockActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
     </application>
 
 </manifest>
