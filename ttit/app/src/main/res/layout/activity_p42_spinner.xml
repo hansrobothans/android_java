@@ -1,0 +1,43 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    tools:context=".P42_SpinnerActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="选择您的排位分段"
+        android:textColor="#44BDED"
+        android:textSize="18sp" />
+
+<!--    android:prompt：设置对话框模式的列表框的提示信息(标题)，-->
+<!--    只能够引用string.xml 中的资源id,而不能直接写字符串-->
+<!--    android:popupBackground="@null"这句话就可去除下拉item背景-->
+<!--    android:background="@null"这句话就可去除向下小箭头-->
+    <Spinner
+        android:id="@+id/spin_one"
+        android:layout_width="200dp"
+        android:layout_height="64dp"
+        android:entries="@array/data"
+        android:prompt="@string/spin_title"
+        android:dropDownWidth="300dp"
+        android:spinnerMode="dropdown"
+        android:background="@null"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="选择你的拿手英雄~"
+        android:textColor="#F5684A"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spin_two"
+        android:layout_width="wrap_content"
+        android:layout_height="64dp" />
+
+</LinearLayout>
