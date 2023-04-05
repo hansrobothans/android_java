@@ -80,7 +80,9 @@
   - [P41-\> GridView 属性](#p41--gridview-属性)
 - [P42\_SpinnerActivity](#p42_spinneractivity)
   - [P42-\> Spinner 属性](#p42--spinner-属性)
-- [](#)
+- [P43\_ExpandableListViewActivity](#p43_expandablelistviewactivity)
+  - [P43-\> ExpandableListView 实现步骤](#p43--expandablelistview-实现步骤)
+  - [P43-\> ExpandableListView item数据准备](#p43--expandablelistview-item数据准备)
 
 # P10_MainActivity
 新建工程  
@@ -1045,8 +1047,29 @@ android:popupBackground="@null"这句话就可去除下拉item背景
 android:background="@null"这句话就可去除向下小箭头
 ```
 
-# 
+# P43_ExpandableListViewActivity
+ExpandableListView可折叠列表  
+ 
+实现ExpandableAdapter的三种方式  
+1. 扩展BaseExpandableListAdpter实现ExpandableAdapter。  
+2. 使用SimpleExpandableListAdpater将两个List集合包装成ExpandableAdapter  
+3. 使用simpleCursorTreeAdapter将Cursor中的数据包装成SimpleCuroTreeAdapter 本节示例使用的是第一个，扩展BaseExpandableListAdpter，我们需要重写该类中的相关方法， 下面我们通过一个代码示例来体验下 ！  
 
+**注意**  
+有一点要注意的是，重写isChildSelectable()方法需要返回true，不然不会触发子Item的点击事件  
+
+## P43-> ExpandableListView 实现步骤
+1. **activity layout**。用于显示布局
+2. **item layout** group。显示折叠条目
+3. **item layout** item。显示折叠内容
+4. **class**  group。显示折叠条目数据对象
+5. **class**  item。显示折叠内容数据对象
+6. **class** adapter 。用于填充ExpandableListView数据的adapter
+7. **activity** adapter用于主布局显示，数据，adapter，ExpandableListView链接
+
+## P43-> ExpandableListView item数据准备
+采用类似于二维数组的方式  
+iData是一个P43_Item列表类型的列表.相当于二位数组  
 
 
 
