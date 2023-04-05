@@ -1,6 +1,7 @@
 package com.example.ttit.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,6 +66,7 @@ public class P38_NewsAdapter2 extends BaseAdapter {
         if (convertView == null) {
             switch (type) {
                 case TYPE_NEWS_1:
+                    Log.d("getView","第"+position+"次给convertView赋值.type取值是"+TYPE_NEWS_1);
                     holder1 = new ViewHolder();
                     convertView = LayoutInflater.from(mContext).inflate(R.layout.item_p38_listview_item_layout
                             , parent
@@ -72,9 +74,11 @@ public class P38_NewsAdapter2 extends BaseAdapter {
                     holder1.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
                     holder1.title = (TextView) convertView.findViewById(R.id.tv_title);
                     holder1.content = (TextView) convertView.findViewById(R.id.tv_content);
+                    holder1.tagId = TYPE_NEWS_1;
                     convertView.setTag(holder1);
                     break;
                 case TYPE_NEWS_2:
+                    Log.d("getView","第"+position+"次给convertView赋值.type取值是"+TYPE_NEWS_2);
                     holder2 = new ViewHolder2();
                     convertView = LayoutInflater.from(mContext).inflate(R.layout.item_p38_listview_item_layout2
                             , parent
@@ -82,6 +86,7 @@ public class P38_NewsAdapter2 extends BaseAdapter {
                     holder2.img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
                     holder2.title = (TextView) convertView.findViewById(R.id.tv_title);
                     holder2.content = (TextView) convertView.findViewById(R.id.tv_content);
+                    holder2.tagId = TYPE_NEWS_2;
                     convertView.setTag(holder2);
                     break;
             }
@@ -90,9 +95,11 @@ public class P38_NewsAdapter2 extends BaseAdapter {
             switch (type) {
                 case TYPE_NEWS_1:
                     holder1 = (ViewHolder) convertView.getTag();
+                    Log.d("getView","第"+position+"次。取值取的type是"+holder1.tagId);
                     break;
                 case TYPE_NEWS_2:
                     holder2 = (ViewHolder2) convertView.getTag();
+                    Log.d("getView","第"+position+"次。取值取的是第"+holder2.tagId);
                     break;
             }
         }
@@ -115,11 +122,13 @@ public class P38_NewsAdapter2 extends BaseAdapter {
         ImageView img_icon;
         TextView title;
         TextView content;
+        int tagId;
     }
 
     static class ViewHolder2 {
         ImageView img_icon;
         TextView title;
         TextView content;
+        int tagId;
     }
 }

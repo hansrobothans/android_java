@@ -14,7 +14,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".P38_ListViewActivity"
+            android:name=".P41_GridViewActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

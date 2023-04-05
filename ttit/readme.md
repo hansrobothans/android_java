@@ -75,6 +75,11 @@
   - [P38-\> ListView item中有button会被抢占焦点](#p38--listview-item中有button会被抢占焦点)
 - [value](#value)
   - [color](#color)
+- [P41\_GridViewActivity](#p41_gridviewactivity)
+- [P41-\> GridView 步骤](#p41--gridview-步骤)
+- [P41-\> GridView 属性](#p41--gridview-属性)
+- [](#)
+  - [属性](#属性)
 
 # P10_MainActivity
 新建工程  
@@ -862,6 +867,14 @@ ListView、GridView、Spinner、RecycleView
    4. 控件设置Adapter为ItemAdapter对象。
    5. 控件设置Item点击事件。
 ## P38-> BaseAdapter 优化
+在每次getView方法都要执行两个耗时操作（反射操作）
+  inflate方法(获取布局对象)
+  findViewById方法(获取控件对象)
+解决办法
+  inflate方法耗时：ConvertView解决（1级优化）
+  findViewById方法耗时：ViewHolder解决（2级优化，也就是需要在1级优化的基础上才能进行的优化）
+
+
 1. 复用ConvertView
 inflate()每次都要加载一次xml，其实这个convertView是系统提供给我们的可供复用的View的缓存对象
 ```Java {.line-numbers}
@@ -985,6 +998,59 @@ android:descendantFocusability="blocksDescendants"
 <!-- 透明色 -->
 <color name="transparent">#00000000</color>
 ```
+
+# P41_GridViewActivity
+# P41-> GridView 步骤
+1. 新建activity layout。Activity布局文件。  
+2. 新建item layout。用于填充。  
+3. 新建item layout的实体类。用于处理item数据。  
+4. 新建继承自BaseAdapter的ItemAdapter类，并重写一下方法：  
+   BaseAdapter最基本的几个方法：  
+   1. getCount 填充的数据集数  
+   2. getItem 数据集中指定索引对应的数据项  
+   3. getItemId 指定行所对应的ID  
+   4. getView 每个Item所显示的类容  
+5. 新建Activity。
+   1. 绑定activity layout控件。
+   2. 新建item layout的实体类数组。用以填充Adapter数据。
+   3. 新建ItemAdapter对象。数据填充为item layout的实体类数组。
+   4. 控件设置Adapter为ItemAdapter对象。
+   5. 控件设置Item点击事件。
+
+# P41-> GridView 属性
+```xml {.line-numbers}
+android:columnWidth：设置列的宽度
+android:gravity：组件对其方式
+android:horizontalSpacing：水平方向每个单元格的间距
+android:verticalSpacing：垂直方向每个单元格的间距
+android:numColumns：设置列数
+android:stretchMode：设置拉伸模式，可选值如下： none：不拉伸；spacingWidth：拉伸元素间的间隔空隙 columnWidth：仅仅拉伸表格元素自身 spacingWidthUniform：既拉元素间距又拉伸他们之间的间隔空袭
+```
+
+# 
+Spinner列表选项框
+##  属性
+```xml {.line-numbers}
+android:dropDownHorizontalOffset：设置列表框的水平偏移距离
+android:dropDownVerticalOffset：设置列表框的水平竖直距离
+android:dropDownSelector：列表框被选中时的背景
+android:dropDownWidth：设置下拉列表框的宽度
+android:gravity：设置里面组件的对其方式
+android:popupBackground：设置列表框的背景
+android:prompt：设置对话框模式的列表框的提示信息(标题)，只能够引用string.xml 中的资源id,而不能直接写字符串
+android:spinnerMode：列表框的模式，有两个可选值： dialog：对话框风格的窗口 dropdown：下拉菜单风格的窗口(默认)可选属性：android:entries：使用数组资源设置下拉列表框的列表项目
+```
+
+
+
+
+
+
+
+
+
+
+
 ```xml {.line-numbers}
 
 ```

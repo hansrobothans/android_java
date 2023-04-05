@@ -1,6 +1,7 @@
 package com.example.ttit.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,37 +41,67 @@ public class P38_NewsAdapter extends BaseAdapter {
         return position;
     }
 
-//便于理解的一个版本
+////  便于理解的一个版本(未优化)
+//    @Override
+//    public View getView(int position, View convertView, ViewGroup parent) {
+////        反射器
+//        LayoutInflater inflater = LayoutInflater.from(mContext);
+//
+////        最后要返回一个View
+////        显示不正常
+////        View view = inflater.inflate(
+////                R.layout.item_p38_listview_item_layout,
+////                null);
+////        直接程序崩
+////        View view = inflater.inflate(
+////                R.layout.item_p38_listview_item_layout,
+////                parent);
+////        可以正常显示
+//        View view = inflater.inflate(
+//                R.layout.item_p38_listview_item_layout,
+//                parent,
+//                false);
+//
+////        也可以使用传进来的一个定义好的用于转换的View
+////        convertView = inflater.inflate(
+////                R.layout.item_p38_listview_item_layout,
+////                parent,
+////                false);
+//
+////        绑定控件
+//        ImageView img_icon = (ImageView) view.findViewById(R.id.img_icon);
+//        TextView title = (TextView) view.findViewById(R.id.tv_title);
+//        TextView content = (TextView) view.findViewById(R.id.tv_content);
+//
+////        完形填空即填充资源
+//        img_icon.setBackgroundResource(mData.get(position).getaIcon());
+//        title.setText(mData.get(position).getTitle());
+//        content.setText(mData.get(position).getContent());
+//
+////        返回View
+//        return view;
+//    }
+
+
+//  便于理解的一个版本(优化)
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 //        反射器
         LayoutInflater inflater = LayoutInflater.from(mContext);
 
-//        最后要返回一个View
-//        显示不正常
-//        View view = inflater.inflate(
-//                R.layout.item_p38_listview_item_layout,
-//                null);
-//        直接程序崩
-//        View view = inflater.inflate(
-//                R.layout.item_p38_listview_item_layout,
-//                parent);
-//        可以正常显示
-        View view = inflater.inflate(
-                R.layout.item_p38_listview_item_layout,
-                parent,
-                false);
-
-//        也可以使用传进来的一个定义好的用于转换的View
-//        convertView = inflater.inflate(
-//                R.layout.item_p38_listview_item_layout,
-//                parent,
-//                false);
+//        使用传进来的一个定义好的用于转换的View
+        if(convertView == null){
+            Log.d("getView","第"+position+"次给convertView赋值");
+            convertView = inflater.inflate(
+                    R.layout.item_p38_listview_item_layout,
+                    parent,
+                    false);
+        }
 
 //        绑定控件
-        ImageView img_icon = (ImageView) view.findViewById(R.id.img_icon);
-        TextView title = (TextView) view.findViewById(R.id.tv_title);
-        TextView content = (TextView) view.findViewById(R.id.tv_content);
+        ImageView img_icon = (ImageView) convertView.findViewById(R.id.img_icon);
+        TextView title = (TextView) convertView.findViewById(R.id.tv_title);
+        TextView content = (TextView) convertView.findViewById(R.id.tv_content);
 
 //        完形填空即填充资源
         img_icon.setBackgroundResource(mData.get(position).getaIcon());
@@ -78,8 +109,10 @@ public class P38_NewsAdapter extends BaseAdapter {
         content.setText(mData.get(position).getContent());
 
 //        返回View
-        return view;
+        return convertView;
     }
+
+
 
 ////    课程未优化前的版本
 //    @Override
@@ -93,6 +126,8 @@ public class P38_NewsAdapter extends BaseAdapter {
 //        content.setText(mData.get(position).getContent());
 //        return convertView;
 //    }
+
+
 
 
 ////    BaseAdapter 优化
@@ -121,10 +156,10 @@ public class P38_NewsAdapter extends BaseAdapter {
 //        holder.content.setText(mData.get(position).getContent());
 //        return convertView;
 //    }
-
-    static class ViewHolder {
-        ImageView img_icon;
-        TextView title;
-        TextView content;
-    }
+//
+//    static class ViewHolder {
+//        ImageView img_icon;
+//        TextView title;
+//        TextView content;
+//    }
 }

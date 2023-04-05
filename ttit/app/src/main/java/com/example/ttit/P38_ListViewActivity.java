@@ -22,8 +22,8 @@ public class P38_ListViewActivity extends AppCompatActivity {
 //    上下文
     private Context mContext;
 
-    private P38_NewsAdapter mAdapter = null;
-//    private P38_NewsAdapter2 mAdapter = null;
+//    private P38_NewsAdapter mAdapter = null;
+    private P38_NewsAdapter2 mAdapter = null;
 
 //    声明ListView控件
     private ListView listView;
@@ -42,9 +42,9 @@ public class P38_ListViewActivity extends AppCompatActivity {
             mData.add(new P38_News("我是一个新闻标题---- " + i, "我是一个新闻内容---- " + i, R.mipmap.news));
         }
 //        只有一种item。打开这个也需要打开25行声明
-        mAdapter = new P38_NewsAdapter(mData, mContext);
+//        mAdapter = new P38_NewsAdapter(mData, mContext);
 //        两种item。打开这个也需要打开26行声明
-//        mAdapter = new P38_NewsAdapter2(mData, mContext);
+        mAdapter = new P38_NewsAdapter2(mData, mContext);
         listView.setAdapter(mAdapter);
 //        设置点击事件
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
