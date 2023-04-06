@@ -38,7 +38,16 @@
   - [ContentProvider的URI](#contentprovider的uri)
   - [使用系统提供的ContentProvider](#使用系统提供的contentprovider)
   - [自定义ContentProvider P66\_ContentProvider2Activity](#自定义contentprovider-p66_contentprovider2activity)
-- [](#)
+- [Fragment（碎片）](#fragment碎片)
+  - [Fragment的生命周期图](#fragment的生命周期图)
+  - [使用V4包还是app包下面的Fragment](#使用v4包还是app包下面的fragment)
+  - [创建一个Fragment](#创建一个fragment)
+    - [静态加载Fragment](#静态加载fragment)
+    - [动态加载Fragment](#动态加载fragment)
+  - [Fragment管理与Fragment事务](#fragment管理与fragment事务)
+    - [main activity传递数据给fragment](#main-activity传递数据给fragment)
+    - [fragment传递数据给main activity](#fragment传递数据给main-activity)
+  - [Fragment与Activity的交互](#fragment与activity的交互)
 
 # Activity
 * 官方解释：  
@@ -397,15 +406,87 @@ exploer/data/data/com.android.providers.contacts/databases/contact2.db 导出
 三个核心的表:raw_contact表，data表，mimetypes表  
 ## 自定义ContentProvider P66_ContentProvider2Activity
 我们自己的应用，想把自己的一些数据暴露出来，给其他的应用进行读取或操作，我们也可以用到ContentProvider，另外我们可以选择要暴露的数据，就避免了我们隐私数据的的泄露！  
-![自定义ContentProvider](./image/自定义ContentProvider.png)  
+![自定义ContentProvider](./image/自定义ContentProvider.png)   
 
-# 
+# Fragment（碎片）
+``` {.line-numbers}
+我们可以把他看成一个小型的Activity，又称Activity片段！想想，如果一个很大的界面，我们 就一个布局，写起界面来会有多麻烦，而且如果组件多的话是管理起来也很麻烦！而使用Fragment我们可以把屏幕划分成几块，然后进行分组，进行一个模块化的管理！从而可以更加方便的在 运行过程中动态地更新Activity的用户界面！另外Fragment并不能单独使用，他需要嵌套在Activity中使用，尽管他拥有自己的生命周期，但是还是会受到宿主Activity的生命周期的影响，比如Activity 被destory销毁了，他也会跟着销毁  
+```
+## Fragment的生命周期图
+![Fragment的生命周期图](./image/Fragment的生命周期图.png)  
 
+``` {.line-numbers}
+  (1)Activity加载Fragment的时候,依次调用下面的方法: onAttach -> onCreate ->onCreateView -> onActivityCreated -> onStart ->onResume  
+  (2)当我们弄出一个悬浮的对话框风格的Activity,或者其他,就是让Fragment所在的Activity可见,但不获得焦点 onPause  
+  (3)当对话框关闭,Activity又获得了焦点: onResume  
+  (4)当我们替换Fragment,并调用addToBackStack()将他添加到Back栈中 onPause -> onStop -> onDestoryView ！！注意,此时的Fragment还没有被销毁哦!!!  
+  (5)当我们按下键盘的回退键，Fragment会再次显示出来: onCreateView -> onActivityCreated-> onStart -> onResume  
+  (6)如果我们替换后,在事务commit之前没有调用addToBackStack()方法将 Fragment添加到back栈中的话;又或者退出了Activity的话,那么Fragment将会被完全结束, Fragment会进入销毁状态onPause -> onStop -> onDestoryView -> onDestory -> onDetach  
+```
+``` {.line-numbers}
+addToBackStack()方法的作用：当移除或替换一个Fragment并向返回栈添加事务时，系统会停止（而非销毁）移除的Fragment。如果用户执行回退操作进行Fragment的恢复，该Fragment将重新启动。如果不向返回栈添加事务，则系统会在移除或替换Fragment时将其销毁。  
+```
+## 使用V4包还是app包下面的Fragment  
+``` {.line-numbers}
+其实都可以，前面说过Fragment是Android 3.0(API 11)后引入的，那么如果开发的app需要 在3.0以下的版本运行呢?比如还有一点点市场份额的2.3!于是乎,v4包就这样应运而生了, 而最低可以兼容到1.6版本！至于使用哪个包看你的需求了,现在3.0下手机市场份额其实已经不多了,随街都是4.0以上的，6.0十月份都出了，你说呢...所以这个时候,你可以直接使用app包下的Fragment 然后调用相关的方法，通常都是不会有什么问题的;如果你Fragment用了app包的, FragmentManager和FragmentTransaction都需要是app包的！要么用全部用app,要么全部用v4, 不然可是会报错的哦!当然如果你要自己的app对于低版本的手机也兼容的话,那么就可以选择用v4包！
+```
+## 创建一个Fragment
+### 静态加载Fragment
+![静态加载Fragment](./image/静态加载Fragment.png)  
+```xml {.line-numbers}
+<fragment
+  android:id="@+id/myfragment"
+  android:name="com.ttit.core.Fragment.MyFragment"
+  android:layout_width="match_parent"
+  android:layout_height="300dp" />
+<!-- ps: 必须添加id属性 -->
+```
+**静态加载Fragment步骤**
+1. 在maina activity layout中增加fragment标签
+2. 在fragment标签增加属性android:name
+3. 新建MyFragment extends Fragment 
 
-
-
-
-
+### 动态加载Fragment
+![动态加载Fragment](./image/动态加载Fragment.png)  
+## Fragment管理与Fragment事务
+![Fragment管理与Fragment事务](./image/Fragment管理与Fragment事务.png)  
+### main activity传递数据给fragment
+在main activity中   
+```java {.line-numbers}
+Bundle b = new Bundle();
+b.putString("name", "jack");
+myFragment.setArguments(b);
+```
+在P67_MyFragment2类中的onCreateView方法里  
+```java {.line-numbers}
+String name = (String) getArguments().get("name");
+Log.e("ttit", "name = " + name);
+```
+### fragment传递数据给main activity
+在P67_MyFragment2类中的提供一个接口
+```java {.line-numbers}
+public interface CallBack {
+    void getResult(String result);
+}
+```
+在P67_MyFragment2类中的提供一个回调方法，类似于按钮的回调方法
+```java {.line-numbers}
+ public void setCallBack(CallBack callBack) {
+    String msg = "传递给宿主FragActivity的数据";
+    callBack.getResult(msg);
+}
+```
+在main activity中实现回调接口
+```java {.line-numbers}
+myFragment.setCallBack(new P67_MyFragment2.CallBack() {
+    @Override
+    public void getResult(String result) {
+        Log.e("ttit", "result = " + result);
+    }
+});
+```
+## Fragment与Activity的交互
+![Fragment与Activity的交互](./image/Fragment与Activity的交互.png)  
 ```xml {.line-numbers}
 
 ```

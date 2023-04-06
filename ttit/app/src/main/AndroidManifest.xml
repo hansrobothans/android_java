@@ -57,7 +57,7 @@
         <service android:name=".core.service.P62_MyService2" />
 
         <activity
-            android:name=".core.provider.P66_ContentProvider2Activity"
+            android:name=".core.fragment.P67_FragActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -76,8 +76,7 @@
             <intent-filter>
                 <action android:name="com.example.ttit.core.broadcastreceiver.P64_StaticBRReceiver" />
             </intent-filter>
-        </receiver>
-        <!-- 属性依次为：全限定类名,用于匹配的URI,是否共享数据(是否允许其他应用跨进程来访问) -->
+        </receiver> <!-- 属性依次为：全限定类名,用于匹配的URI,是否共享数据(是否允许其他应用跨进程来访问) -->
         <provider
             android:name="com.example.ttit.core.provider.P66_NameContentProvider"
             android:authorities="com.example.ttit.core..providers.myprovider"
