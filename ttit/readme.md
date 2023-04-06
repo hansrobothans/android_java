@@ -88,7 +88,15 @@
   - [P45-\> AlertDialog 创建步骤](#p45--alertdialog-创建步骤)
   - [P45-\> AlertDialog.Builder方法](#p45--alertdialogbuilder方法)
 - [java设计模式：建造者模式-Builder模式](#java设计模式建造者模式-builder模式)
-- [](#)
+- [P46\_DispatchActivity](#p46_dispatchactivity)
+  - [P46-\> Dispatch Android事件分发机制](#p46--dispatch-android事件分发机制)
+    - [P46-\> Dispatch被分发的对象-事件](#p46--dispatch被分发的对象-事件)
+    - [P46-\> Dispatch分发事件的组件](#p46--dispatch分发事件的组件)
+    - [P46-\> Dispatch分发的核心方法](#p46--dispatch分发的核心方法)
+    - [P46-\> Dispatch事件分发过程](#p46--dispatch事件分发过程)
+- [P47\_PopupWindowActivity](#p47_popupwindowactivity)
+  - [P47-\> PopupWindow 与AlertDialog区别：](#p47--popupwindow-与alertdialog区别)
+  - [P47-\> PopupWindow 方法](#p47--popupwindow-方法)
 
 # P10_MainActivity
 新建工程  
@@ -1141,12 +1149,78 @@ alert.show();                    //显示对话框
 
 # java设计模式：建造者模式-Builder模式
 
-# 
+# P46_DispatchActivity
+## P46-> Dispatch Android事件分发机制
+### P46-> Dispatch被分发的对象-事件
+被分发的对象是那些？  
+被分发的对象是用户触摸屏幕而产生的点击事件，事件主要包括：按下、滑动、抬起与取消。  
+这些事件被封装成MotionEvent对象。该对象中的主要事件如下表所示：  
+|事件 |触发场景 |单次事件流中触发的次数|
+|---|---|---|
+|MotionEvent.ACTION_DOWN |在屏幕按下时 |1次|
+|MotionEvent.ACTION_MOVE |在屏幕上滑动时 |0次或多次|
+|MotionEvent.ACTION_UP |在屏幕抬起时 |0次或1次|
+|MotionEvent.ACTION_CANCLE |滑动超出控件边界时 |0次或1次|
+按下、滑动、抬起、取消这几种事件组成了一个事件流。  
+事件流以按下为开始，中间可能有若干次滑动，以抬起或取消作为结束  
+### P46-> Dispatch分发事件的组件
+分发事件的组件，也称为分发事件者，包括Activity、View和ViewGroup。它们三者的一般结构为：  
+![分发事件者](./image/分发事件者.png)
+从上图中可以看出，Activity包括了ViewGroup，ViewGroup又可以包含多个View。  
+|组件 |特点 |举例|
+|---|---|---|
+|Activity |安卓视图类 |如MainActivity|
+|ViewGroup |View的容器，可以包含若干View |各种布局类|
+|View |UI类组件的基类 |如按钮、文本框|
+### P46-> Dispatch分发的核心方法
+负责对事件进行分发的方法主要有三个，分别是：   
+* dispatchTouchEvent()   
+* onTouchEvent()  
+* onInterceptTouchEvent()  
 
+它们并不存在于所有负责分发的组件中，其具体情况总结于下面的表格中：    
+|组件 |dispatchTouchEvent |onTouchEvent |onInterceptTouchEvent|
+|---|---|---|---|
+|Activity |存在 |存在 |不存在|
+|ViewGroup |存在 |存在 |存在|
+|View |存在 |存在 |不存在|
 
+从表格中看，dispatchTouchEvent,onTouchEvent方法存在于上文的三个组件中。    
+而onInterceptTouchEvent为ViewGroup独有。这些方法的具体作用在下文作介绍  
 
+### P46-> Dispatch事件分发过程
+* 向下传播：Activity包括Layout，事件从Activity向Layout传播被称作'向下传播'。Layout包含若干View，事件从Layout向其子View传播，也被称为'向下传播'。  
+* 向上传播：与'向下传播'相反。  
+* 分发方法 dispatchTouchEvent从方法的名称中可以看出该方法主要是负责分发，是安卓事件分发过程中的核心。事件是如何传递的，主要就是看该方法，理解了这个方法，也就理解了安卓事件分发机制。  
 
+在了解该方法的核心机制之前，需要知道一个结论：  
 
+  * 如果某个组件的该方法返回TRUE,则表示该组件已经对事件进行了处理，不用继续调用其余组件的分发方法，即停止分发。  
+  * 如果某个组件的该方法返回FALSE,则表示该组件不能对该事件进行处理，需要按照规则继续分发事件。在不复写该方法的情况下，除了一些特殊的组件，其余组件都是默认返回False的。后续有例子说明。  
+ViewGroup独有的 onInterceptTouchEvent 方法  
+ViewGroup的该方法与Activity的类似，只是新添了一个onInterceptTouchEvent方法。当事件传入时，首先会调用onInterceptTouchEvent。  
+  * 如果该方法返回了FALSE（表示不拦截），则交给子View去调用dispatchTouchEvent（）方法  
+  * 如果该方法返回了TRUE（表示拦截），则直接交给该ViewGroup对象的onTouchEvent(ev)方法处理，具体是否能处理以onTouchEvent()的实际情况为准。  
+
+![事件分发过程](./image/事件分发过程.png)  
+
+# P47_PopupWindowActivity
+PopupWindow 悬浮框
+## P47-> PopupWindow 与AlertDialog区别：
+本质区别为：
+  AlertDialog是非阻塞式对话框：AlertDialog弹出时，后台还可以做事情；而PopupWindow是阻塞式对话框：PopupWindow弹出时，程序会等待，在PopupWindow退出前，程序一直等待，只有当我们调用了dismiss方法的后，PopupWindow退出，程序才会向下执行。  
+这两种区别的表现是：
+  AlertDialog弹出时，背景是黑色的，但是当我们点击背景，AlertDialog会消失，证明程序不仅响应AlertDialog的操作，还响应其他操作，其他程序没有被阻塞，这说明了AlertDialog是非阻塞式对话框；PopupWindow弹出时，背景没有什么变化，但是当我们点击背景的时候，程序没有响应，只允许我们操作PopupWindow，其他操作被阻塞
+## P47-> PopupWindow 方法
+1. setContentView(View contentView)：设置PopupWindow显示的View
+2. getContentView()：获得PopupWindow显示的View
+3. showAsDropDown(View anchor)：相对某个控件的位置（正左下方），无偏移
+4. showAsDropDown(View anchor, int xoff, int yoff)：相对某个控件的位置，有偏移
+5. showAtLocation(View parent, int gravity, int x, int y)： 相对于父控件的位置（例如正中央Gravity.CENTER，下方Gravity.BOTTOM等），可以设置偏移或无偏移 PS:parent这个参数只要是activity中的view就可以了！
+6. setWidth/setHeight：设置宽高，也可以在构造方法那里指定好宽高， 除了可以写具体的值，还可以用WRAP_CONTENT或MATCH_PARENT， popupWindow的width和height属性直接和第一层View相对应。
+7. setFocusable(true)：设置焦点，PopupWindow弹出后，所有的触屏和物理按键都由
+8. PopupWindows 处理。其他任何事件的响应都必须发生在PopupWindow消失之后，（home 等系统层面的事件除外）。 比如这样一个PopupWindow出现的时候，按back键首先是让PopupWindow消失，第二次按才是退出 activity，准确的说是想退出activity你得首先让PopupWindow消失，因为不并是任何情况下按back PopupWindow都会消失，必须在PopupWindow设置了背景的情况下 。
+9. setAnimationStyle(int)：设置动画效果
 
 
 ```xml {.line-numbers}

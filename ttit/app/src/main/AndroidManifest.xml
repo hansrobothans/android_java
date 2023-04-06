@@ -12,9 +12,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ttit"
         tools:targetApi="31">
-
         <activity
-            android:name=".P45_AlertDialogActivity"
+            android:name=".P47_PopupWindowActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
