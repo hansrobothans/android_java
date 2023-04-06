@@ -45,9 +45,10 @@
     - [静态加载Fragment](#静态加载fragment)
     - [动态加载Fragment](#动态加载fragment)
   - [Fragment管理与Fragment事务](#fragment管理与fragment事务)
+  - [Fragment与Activity的交互](#fragment与activity的交互)
     - [main activity传递数据给fragment](#main-activity传递数据给fragment)
     - [fragment传递数据给main activity](#fragment传递数据给main-activity)
-  - [Fragment与Activity的交互](#fragment与activity的交互)
+- [](#)
 
 # Activity
 * 官方解释：  
@@ -445,11 +446,19 @@ addToBackStack()方法的作用：当移除或替换一个Fragment并向返回�
 1. 在maina activity layout中增加fragment标签
 2. 在fragment标签增加属性android:name
 3. 新建MyFragment extends Fragment 
-
+4. 重写onCreateView返回一个View。最简单就是打平一个fragment layout
+5. 新建一个fragment layout用于打平
 ### 动态加载Fragment
 ![动态加载Fragment](./image/动态加载Fragment.png)  
+**动态加载Fragment步骤**
+1. 新建MyFragment extends Fragment 
+2. 重写onCreateView返回一个View。最简单就是打平一个fragment layout
+3. 新建一个fragment layout用于打平
+4. 在maina activity中new一个MyFragment对象
 ## Fragment管理与Fragment事务
 ![Fragment管理与Fragment事务](./image/Fragment管理与Fragment事务.png)  
+## Fragment与Activity的交互
+![Fragment与Activity的交互](./image/Fragment与Activity的交互.png)  
 ### main activity传递数据给fragment
 在main activity中   
 ```java {.line-numbers}
@@ -485,8 +494,8 @@ myFragment.setCallBack(new P67_MyFragment2.CallBack() {
     }
 });
 ```
-## Fragment与Activity的交互
-![Fragment与Activity的交互](./image/Fragment与Activity的交互.png)  
+
+# 
 ```xml {.line-numbers}
 
 ```
