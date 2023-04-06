@@ -23,6 +23,15 @@
     - [StartService启动Service](#startservice启动service)
     - [BindService启动Service](#bindservice启动service)
     - [StartService启动Service后bindService绑定](#startservice启动service后bindservice绑定)
+- [BroadcastReceiver 广播接收器](#broadcastreceiver-广播接收器)
+  - [前言](#前言)
+  - [在Android系统中，主要有两种基本的广播类型：](#在android系统中主要有两种基本的广播类型)
+    - [标准广播（Normal Broadcasts）](#标准广播normal-broadcasts)
+    - [有序广播（Ordered Broadcasts）](#有序广播ordered-broadcasts)
+  - [注册广播](#注册广播)
+  - [两种方式注册广播：](#两种方式注册广播)
+    - [动态注册](#动态注册)
+    - [静态注册](#静态注册)
 
 # Activity
 * 官方解释：  
@@ -297,8 +306,65 @@ PS:还有一种，就是启动Service后，绑定Service！
   * 得出的结论: 假如我们使用bindService来绑定一个启动的Service,注意是已经启动的Service!!! 系统只是将Service的内部IBinder对象传递给Activity,并不会将Service的生命周期 与Activity绑定,因此调用unBindService( )方法取消绑定时,Service也不会被销毁！
 ```
 
-
-
+# BroadcastReceiver 广播接收器
+## 前言  
+为了方便Android系统各个应用程序及程序内部进行通信，Android系统引入了一套广播机制。各个应用程序可以对感兴趣的广播进行注册，当系统或者其他程序发出这条广播的时候，对发出的广播进行注册的程序便能够收到这条广播。为此，Android系统中有一套完整的API，允许程序只有的发送和接受广播。  
+## 在Android系统中，主要有两种基本的广播类型：  
+### 标准广播（Normal Broadcasts）  
+```java {.line-numbers}
+//是一种完全异步执行的广播，在广播发出之后，所有的广播接收器会在同一时间接收到这条广播，广播无法被截断.
+//发送方式：
+Intent intent=new Intent("com.example.dimple.BROADCAST_TEST");
+sendBroadcast(intent);
+```
+### 有序广播（Ordered Broadcasts）
+```java {.line-numbers}
+//是一种同步执行的广播，在广播发出之后，优先级高的广播接收器可以优先接收到这条广播，并可以在优先级较低的广播接收器之前截断停止发送这条广播。
+//发送方式：
+Intent intent=new Intent("com.example.dimple.BROADCAST_TEST");
+sendOrderBroadcast(intent，null);//第二个参数是与权限相关的字符串。
+```
+## 注册广播
+```java {.line-numbers}
+//在Android的广播接收机制中，如果需要接收广播，就需要创建广播接收器。而创建广播接收器的方法就是新建一个类（可以是单独新建类，也可以是内部类（public）） 继承自BroadcastReceiver
+class myBroadcastReceiver extends BroadcastReceiver{
+   @Override
+   public void onReceive(Context context, Intent intent) {
+     //不要在广播里添加过多逻辑或者进行任何耗时操作,因为在广播中是不允许开辟线程的, 当onReceiver( )方法运行较长时间(超过10秒)还没有结束的话,那么程序会报错(ANR), 广播更多的时候扮演的是一个打开其他组件的角色,比如启动Service,Notification提示, Activity等！
+   }
+}
+```
+动态注册和静态注册的区别
+```md {.line-numbers}
+* 动态注册的广播接收器可以自由的控制注册和取消，有很大的灵活性。但是只能在程序启动之后才能收到广播，此外，不知道你注意到了没，广播接收器的注销是在onDestroy()方法中的。所以广播接收器的生命周期是和当前活动的生命周期一样。
+* 静态注册的广播不受程序是否启动的约束，当应用程序关闭之后，还是可以接收到广播
+```
+## 两种方式注册广播：
+### 动态注册
+```java {.line-numbers}
+//所谓动态注册是指在代码中注册。步骤如下 ：
+//- 实例化自定义的广播接收器。
+//- 创建IntentFilter实例。
+//- 调用IntentFilter实例的addAction()方法添加监听的广播类型。
+//- 最后调用Context的registerReceiver(BroadcastReceiver,IntentFilter)动态的注册广播。
+//PS:这里提醒一点，如果需要接收系统的广播（比如电量变化，网络变化等等），别忘记在AndroidManifest配置文件中加上权限。
+//另外，动态注册的广播在活动结束的时候需要取消注册：
+@Override
+protected void onDestroy() {
+  super.onDestroy();
+  unregisterReceiver(myBroadcastReceiver);
+}
+```
+### 静态注册
+```xml {.line-numbers}
+<receiver
+  android:name="com.ttit.core.broadcastreceiver.MyBRReceiver2">
+    <intent-filter>
+      <action
+        android:name="com.example.broadcasttest.MY_BROADCAST" />
+    </intent-filter>
+</receiver>
+```
 
 
 

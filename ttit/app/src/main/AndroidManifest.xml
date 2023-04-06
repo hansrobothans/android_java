@@ -14,6 +14,13 @@
         tools:targetApi="31">
 
         <activity
+            android:name=".core.broadcastreceiver.P63_BActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".core.activity.P54_ThirdActivity"
             android:exported="false">
             <meta-data
@@ -46,7 +53,7 @@
         <service android:name=".core.service.P62_MyService2" />
 
         <activity
-            android:name=".core.service.P62_Service2Activity"
+            android:name=".core.broadcastreceiver.P63_AActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,6 +65,12 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        <receiver android:name="com.example.ttit.core.broadcastreceiver.P64_StaticBRReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.ttit.core.broadcastreceiver.P64_StaticBRReceiver" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
