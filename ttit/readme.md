@@ -83,6 +83,12 @@
 - [P43\_ExpandableListViewActivity](#p43_expandablelistviewactivity)
   - [P43-\> ExpandableListView 实现步骤](#p43--expandablelistview-实现步骤)
   - [P43-\> ExpandableListView item数据准备](#p43--expandablelistview-item数据准备)
+- [P44\_ToastActivity](#p44_toastactivity)
+- [P45\_AlertDialogActivity](#p45_alertdialogactivity)
+  - [P45-\> AlertDialog 创建步骤](#p45--alertdialog-创建步骤)
+  - [P45-\> AlertDialog.Builder方法](#p45--alertdialogbuilder方法)
+- [java设计模式：建造者模式-Builder模式](#java设计模式建造者模式-builder模式)
+- [](#)
 
 # P10_MainActivity
 新建工程  
@@ -1071,7 +1077,71 @@ ExpandableListView可折叠列表
 采用类似于二维数组的方式  
 iData是一个P43_Item列表类型的列表.相当于二位数组  
 
+# P44_ToastActivity
+Toast可被当成一个布局进行操作
 
+# P45_AlertDialogActivity
+## P45-> AlertDialog 创建步骤 
+Step 1：创建AlertDialog.Builder对象；  
+Step 2：调用setIcon()设置图标，setTitle()或setCustomTitle()设置标题；  
+Step 3：设置对话框的内容：setMessage()还有其他方法来指定显示的内容；  
+Step 4：调用setPositive/Negative/NeutralButton()设置：确定，取消，中立按钮；  
+Step 5：调用create()方法创建这个对象，再调用show()方法将对话框显示出来； 
+## P45-> AlertDialog.Builder方法
+```java {.line-numbers}
+alert = null;
+builder = new AlertDialog.Builder(mContext);
+alert = builder
+      // 图标
+      .setIcon(R.mipmap.ic_icon_fish)
+      // 标题
+      .setTitle("系统提示：")
+      // 消息
+      .setMessage("这是一个最普通的AlertDialog,\n带有三个按钮，分别是取消，中立和确定")
+      // 取消按钮
+      .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+              Toast.makeText(mContext, "你点击了取消按钮~", Toast.LENGTH_SHORT).show();
+          }
+      })
+      // 确定按钮
+      .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+              Toast.makeText(mContext, "你点击了确定按钮~", Toast.LENGTH_SHORT).show();
+          }
+      })
+      // 中间按钮
+      .setNeutralButton("中立", new DialogInterface.OnClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which) {
+              Toast.makeText(mContext, "你点击了中立按钮~", Toast.LENGTH_SHORT).show();
+          }
+      })
+      // 列表对话框设置
+      .setItems(lesson, new DialogInterface.OnClickListener() {
+         @Override
+         public void onClick(DialogInterface dialog, int which) {
+           Toast.makeText(getApplicationContext(), "你选择了" + lesson[which], Toast.LENGTH_SHORT).show();
+         }
+      })
+      // 多选列表对话框
+      .setMultiChoiceItems(menu, checkItems, new DialogInterface.OnMultiChoiceClickListener() {
+          @Override
+          public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+              checkItems[which] = isChecked;
+          }
+      })
+      // 点击item后是否立即退出
+      .setCancelable(false)
+      .create();             //创建AlertDialog对象
+alert.show();                    //显示对话框
+```
+
+# java设计模式：建造者模式-Builder模式
+
+# 
 
 
 
