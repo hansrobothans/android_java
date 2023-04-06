@@ -33,6 +33,12 @@
     - [动态注册](#动态注册)
     - [静态注册](#静态注册)
 - [ContentProvider(内容提供者)](#contentprovider内容提供者)
+  - [ContentProvider应用场景：](#contentprovider应用场景)
+  - [ContentProvider概念讲解](#contentprovider概念讲解)
+  - [ContentProvider的URI](#contentprovider的uri)
+  - [使用系统提供的ContentProvider](#使用系统提供的contentprovider)
+  - [自定义ContentProvider P66\_ContentProvider2Activity](#自定义contentprovider-p66_contentprovider2activity)
+- [](#)
 
 # Activity
 * 官方解释：  
@@ -368,12 +374,37 @@ protected void onDestroy() {
 ```
 
 # ContentProvider(内容提供者)
-ContentProvider应用场景：  
+## ContentProvider应用场景：  
   * 我们想在自己的应用中访问别的应用，或者说一些ContentProvider暴露给我们的一些数据， 比如手机联系人，短信等！我们想对这些数据进行读取或者修改，这就需要用到ContentProvider了！  
   * 我们自己的应用，想把自己的一些数据暴露出来，给其他的应用进行读取或操作，我们也可以用到ContentProvider，另外我们可以选择要暴露的数据，就避免了我们隐私数据的的泄露！   
    
-ContentProvider概念讲解    
+## ContentProvider概念讲解    
 ![ContentProvider概念](./image/ContentProvider概念.png)  
+## ContentProvider的URI
+![URI](./image/URI.png)  
+``` {.line-numbers}
+* 主要分三个部分：scheme, authority and path。scheme表示上图中的content://，authority表示B部分，path表示C和D部分。
+* A部分：表示是一个Android内容URI，说明由ContentProvider控制数据，该部分是固定形式，不可更改的。
+* B部分：是URI的授权部分，是唯一标识符，用来定位ContentProvider。格式一般是自定义ContentProvider类的完全限定名称，注册时需要用到，如：com.example.transportationprovider
+* C部分和D部分：是每个ContentProvider内部的路径部分，C和D部分称为路径片段，C部分指向一个对象集合，一般用表的名字，如：/trains表示一个笔记集合；D部分指向特定的记录，如：/trains/122表示id为122的单条记录，如果没有指定D部分，则返回全部记录。
+```
+## 使用系统提供的ContentProvider 
+第66课前半部分讲解  
+打开模拟器的file  
+exploer/data/data/com.android.providers.contacts/databases/contact2.db 导出  
+下载SQLiteStudio软件  
+导出后使用SQLite图形工具查看  
+三个核心的表:raw_contact表，data表，mimetypes表  
+## 自定义ContentProvider P66_ContentProvider2Activity
+我们自己的应用，想把自己的一些数据暴露出来，给其他的应用进行读取或操作，我们也可以用到ContentProvider，另外我们可以选择要暴露的数据，就避免了我们隐私数据的的泄露！  
+![自定义ContentProvider](./image/自定义ContentProvider.png)  
+
+# 
+
+
+
+
+
 
 ```xml {.line-numbers}
 

@@ -2,9 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <!-- 权限 -->
-<!--    读取联系人-->
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-<!--    写入联系人-->
+    <!-- 读取联系人 -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" /> <!-- 写入联系人 -->
     <uses-permission android:name="android.permission.WRITE_CONTACTS" />
 
     <application
@@ -58,7 +57,7 @@
         <service android:name=".core.service.P62_MyService2" />
 
         <activity
-            android:name=".core.provider.P65_ContentProviderActivity"
+            android:name=".core.provider.P66_ContentProvider2Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -78,6 +77,11 @@
                 <action android:name="com.example.ttit.core.broadcastreceiver.P64_StaticBRReceiver" />
             </intent-filter>
         </receiver>
+        <!-- 属性依次为：全限定类名,用于匹配的URI,是否共享数据(是否允许其他应用跨进程来访问) -->
+        <provider
+            android:name="com.example.ttit.core.provider.P66_NameContentProvider"
+            android:authorities="com.example.ttit.core..providers.myprovider"
+            android:exported="true" />
     </application>
 
 </manifest>
