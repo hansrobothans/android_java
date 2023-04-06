@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5dp"
-    tools:context=".P42_SpinnerActivity">
+    tools:context=".ui.P42_SpinnerActivity">
 
     <TextView
         android:layout_width="wrap_content"

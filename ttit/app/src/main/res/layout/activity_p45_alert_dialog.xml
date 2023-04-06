@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:padding="5dp"
     android:orientation="vertical"
-    tools:context=".P45_AlertDialogActivity">
+    tools:context=".ui.P45_AlertDialogActivity">
 
     <Button
         android:id="@+id/btn_dialog_one"
