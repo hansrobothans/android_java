@@ -1,3 +1,28 @@
+- [Activity](#activity)
+  - [P52 创建](#p52-创建)
+  - [P53 生命周期](#p53-生命周期)
+  - [P54 组件间通信 Intent](#p54-组件间通信-intent)
+    - [P54 组件间通信 Intent 传入1](#p54-组件间通信-intent-传入1)
+    - [P54 组件间通信 Intent 传入2](#p54-组件间通信-intent-传入2)
+    - [P54 组件间通信 Intent 传出](#p54-组件间通信-intent-传出)
+  - [P55 Back Stack（回退堆栈）](#p55-back-stack回退堆栈)
+  - [P56 启动模式](#p56-启动模式)
+    - [P56 启动模式 standard模式:](#p56-启动模式-standard模式)
+    - [P57 启动模式 singleTop模式:](#p57-启动模式-singletop模式)
+    - [P58 启动模式 singleTask模式:](#p58-启动模式-singletask模式)
+    - [P59 启动模式 singleInstance（全局唯一）模式:](#p59-启动模式-singleinstance全局唯一模式)
+- [Service(服务)](#service服务)
+  - [线程](#线程)
+    - [线程的相关概念](#线程的相关概念)
+    - [线程的生命周期](#线程的生命周期)
+    - [创建线程的三种方式](#创建线程的三种方式)
+    - [Service与Thread线程的区别](#service与thread线程的区别)
+    - [P60\_NewThread](#p60_newthread)
+  - [Service的生命周期 P61\_ServiceActivity](#service的生命周期-p61_serviceactivity)
+  - [service启动方式： P62\_Service2Activity](#service启动方式-p62_service2activity)
+    - [StartService启动Service](#startservice启动service)
+    - [BindService启动Service](#bindservice启动service)
+    - [StartService启动Service后bindService绑定](#startservice启动service后bindservice绑定)
 
 # Activity
 * 官方解释：  
@@ -66,7 +91,7 @@ Intent backIn = new Intent();
 backIn.putExtra("back", "abcdef");
 setResult(1002, backIn);
 ```
-## Back Stack（回退堆栈）
+## P55 Back Stack（回退堆栈）
 ``` {.line-numbers}
 Java栈Stack概念：
 后进先出(LIFO)，常用操作入栈(push)，出栈(pop)，处于最顶部的叫栈顶，最底部叫栈底
@@ -95,7 +120,7 @@ Activity 管理机制:
   startActivity(intent);
 ```
 
-## P54 启动模式
+## P56 启动模式
 ``` {.line-numbers}
 模式详解：
 standard模式 ：
@@ -107,15 +132,15 @@ singleTask模式 ：
 singleInstance模式 ：
   保证系统无论从哪个Task启动Activity都只会创建一个Activity实例,并将它加入新的Task栈顶也就是说被该实例启动的其他activity会自动运行于另一个Task中。当再次启动该activity的实例时，会重用已存在的任务和实例。并且会调用这个实例 的onNewIntent()方法，将Intent实例传递到该实例中。和singleTask相同，同一时刻在系统中只会存在一个这样的Activity实例。
 ```
-### P54 启动模式 standard模式:
+### P56 启动模式 standard模式:
 ![standard模式](./image/standard模式.png)
 
-### P54 启动模式 singleTop模式:
+### P57 启动模式 singleTop模式:
 **singleTop只要处于栈顶就不会重复创建，如果没有处于栈顶还是会重复创建**  
 在该模式下，如果栈顶Activity为我们要新建的Activity（目标Activity），那么就不会重复创建新的Activity。  
 ![singleTop模式](./image/singleTop模式.png)
 
-### P54 启动模式 singleTask模式:
+### P58 启动模式 singleTask模式:
 ``` {.line-numbers}
 与singleTop模式相似，只不过singleTop模式是只是针对栈顶的元素，而singleTask模式下，如果task栈内存在目标Activity实例，则：
 将task内的对应Activity实例之上的所有Activity弹出栈。
@@ -123,9 +148,160 @@ singleInstance模式 ：
 ```
 ![singleTask模式](./image/singleTask模式.png)
 
-### P54 启动模式 singleInstance（全局唯一）模式:
+### P59 启动模式 singleInstance（全局唯一）模式:
 是我们最后的一种启动模式，也是我们最恶心的一种模式：在该模式下，我们会为目标Activity分配一个新的affinity，并创建一个新的Task栈，将目标Activity放入新的Task，并让目标Activity获得焦点。新的Task有且只有这一个Activity实例。 如果已经创建过目标Activity实例，则不会创建新的Task，而是将以前创建过的Activity唤醒（对应Task设为Foreground状态）
 ![singleInstance模式](./image/singleInstance模式.png)
+
+# Service(服务)
+## 线程
+### 线程的相关概念
+* 程序：为了完成特定任务，用某种语言编写的一组指令集合(一组静态代码)  
+* 进程：运行中的程序，系统调度与资源分配的一个独立单位，操作系统会为每个进程分配一段内存空间！程序的依次动态执行，经历代码的加载，执行，执行完毕的完整过程！  
+* 线程：比进程更小的执行单元，每个进程可能有多条线程，线程需要放在一个进程中才能执行，线程由程序负责管理，而进程则由系统进行调度！  
+* 多线程的理解：并行执行多个条指令，将CPU时间片按照调度算法分配给各个线程，实际上是分时执行的，只是这个切换的时间很短，用户感觉到"同时"而已！  
+### 线程的生命周期
+![线程的生命周期](./image/线程的生命周期.png)  
+### 创建线程的三种方式
+1. 继承Thread类
+```java {.line-numbers}
+public class MyThread extends Thread{
+   @Override
+   public void run() {
+      // TODO Auto-generated method stub
+      //super.run();
+      doSomething();
+   } 
+   private void doSomething() {
+      // TODO Auto-generated method stub
+      System.out.println("我是一个线程中的方法");
+   }
+}
+/************************************************/
+public class NewThread {
+   public static void main(String[] args) {
+         MyThread myThread=new MyThread();
+         myThread.start();//开启一个线程方法
+         //以下的方法可与上边的线程并发执行
+         doSomething();
+      } 
+      private static void doSomething() {
+      // TODO Auto-generated method stub
+   }
+}
+```
+2. 实现Runnable接口
+```java {.line-numbers}
+public class RunnableThread implements Runnable{
+   @Override
+   public void run() {
+      // TODO Auto-generated method stub
+      doSomeThing();
+   } 
+   private void doSomeThing() {
+      // TODO Auto-generated method stub
+      System.out.println("我是一个线程方法");
+   }
+}
+/************************************************/
+public class NewThread {
+   public static void main(String[] args) {
+      Runnable runnable=new RunnableThread();
+      Thread thread=new Thread(runnable);
+      thread.start();//开启一个线程方法
+      //以下的方法可与上边的线程并发执行
+      doSomething();
+   } 
+   private static void doSomething() {
+      // TODO Auto-generated method stub
+   }
+}
+```
+3. 实现Callable接口和Future创建线程
+```java {.line-numbers}
+public class CallableThread implements Callable<String>{
+   @Override
+   public String call() throws Exception {
+      // TODO Auto-generated method stub
+      doSomeThing();
+      return "需要返回的值";
+   } 
+   private void doSomeThing() {
+      // TODO Auto-generated method stub
+      System.out.println("我是线程中的方法");
+   }
+}
+/************************************************/
+public class NewThread {
+   public static void main(String[] args) {
+      Callable<String> callable=new CallableThread();
+      FutureTask<String> futureTask=new FutureTask<String>(callable);
+      Thread thread=new Thread(futureTask);
+      thread.start();//开启一个线程方法
+      //以下的方法可与上边的线程并发执行
+      doSomething();
+      try {
+         futureTask.get();//获取线程返回值
+      } catch (InterruptedException | ExecutionException e) {
+         // TODO Auto-generated catch block
+         e.printStackTrace();
+      }
+   } 
+   private static void doSomething() {
+      // TODO Auto-generated method stub
+   }
+}
+```
+### Service与Thread线程的区别
+其实他们两者并没有太大的关系，不过有很多朋友经常把这两个混淆了！   
+Thread是线程，程序执行的最小单元，分配CPU的基本单位！ 
+而Service则是Android提供一个允许长时间留驻后台的一个组件，最常见的用法就是做轮询操作！或者想在后台做一些事情，比如后台下载更新！ 记得别把这两个概念混淆！
+### P60_NewThread
+线程的三种创建方式演示  
+## Service的生命周期 P61_ServiceActivity
+![Service的生命周期](./image/Service的生命周期.png)  
+``` {.line-numbers}
+生命周期函数解析：
+  1）onCreate()：当Service第一次被创建后立即回调该方法，该方法在整个生命周期 中只会调用一次！
+  2）onDestory()：当Service被关闭时会回调该方法，该方法只会回调一次！
+  3）onStartCommand(intent,flag,startId)：早期版本onStart(intent,startId), 当客户端调用startService(Intent)方法时会回调，可多次调用StartService方法， 但不会再创建新的Service对象，而是继续复用前面产生的Service对象，但会继续回调 onStartCommand()方法！
+  IBinder onOnbind(intent)：该方法是Service都必须实现的方法，该方法会返回一个 IBinder对象，app通过该对象与Service组件进行通信！
+  4）onUnbind(intent)：当该Service上绑定的所有客户端都断开时会回调该方法！
+```
+## service启动方式： P62_Service2Activity
+``` {.line-numbers}
+1）StartService()启动Service
+2）BindService()启动Service
+PS:还有一种，就是启动Service后，绑定Service！
+```
+### StartService启动Service
+``` {.line-numbers}
+  (1) 首次启动会创建一个Service实例,依次调用onCreate()和onStartCommand()方法,此时Service 进入运行状态,如果再次调用StartService启动Service,将不会再创建新的Service对象, 系统会直接复用前面创建的Service对象,调用它的onStartCommand()方法！
+  (2) 但这样的Service与它的调用者无必然的联系,就是说当调用者结束了自己的生命周期, 但是只要不调用stopService,那么Service还是会继续运行的!
+  (3) 无论启动了多少次Service,只需调用一次StopService即可停掉Service
+```
+### BindService启动Service
+``` {.line-numbers}
+  (1) 当首次使用bindService绑定一个Service时,系统会实例化一个Service实例,并调用其onCreate()和onBind()方法,然后调用者就可以通过IBinder和Service进行交互了,此后如果再次使用bindService绑定Service,系统不会创建新的Sevice实例,也不会再调用onBind()方法,只会直接把IBinder对象传递给其他后来增加的客户端!
+  (2) 如果我们解除与服务的绑定,只需调用unbindService(),此时onUnbind和onDestory方法将会被调用!这是一个客户端的情况,假如是多个客户端绑定同一个Service的话,情况如下当一个客户完成和service之间的互动后，它调用unbindService() 方法来解除绑定。当所有的客户端都和service解除绑定后，系统会销毁service。（除非service也被startService()方法开启）
+  (3) 另外,和上面那张情况不同,bindService模式下的Service是与调用者相互关联的,可以理解为"一条绳子上的蚂蚱",要死一起死,在bindService后,一旦调用者销毁,那么Service也立即终止!
+  * 通过BindService调用Service时调用的Context的bindService的解析bindService(Intent Service,ServiceConnection conn,int flags)
+  * service:通过该intent指定要启动的Service
+  * conn:ServiceConnection对象,用户监听访问者与Service间的连接情况, 连接成功回调该对象中的onServiceConnected(ComponentName,IBinder)方法; 如果Service所在的宿主由于异常终止或者其他原因终止,导致Service与访问者间断开 连接时调用onServiceDisconnected(CompanentName)方法,主动通过unBindService() 方法断开并不会调用上述方法!
+  * flags:指定绑定时是否自动创建Service(如果Service还未创建), 参数可以是0(不自动创建),BIND_AUTO_CREATE(自动创建)
+```
+### StartService启动Service后bindService绑定
+``` {.line-numbers}
+  * 如果Service已经由某个客户端通过StartService()启动,接下来由其他客户端 再调用bindService()绑定到该Service后调用unbindService()解除绑定最后在 调用bindService()绑定到Service的话,此时所触发的生命周期方法如下:
+  * onCreate( )->onStartCommand( )->onBind( )->onUnbind( )->onRebind( )
+  * PS:前提是:onUnbind()方法返回true!!! 这里或许部分读者有疑惑了,调用了unbindService后Service不是应该调用 onDistory()方法么!其实这是因为这个Service是由我们的StartService来启动的 ,所以你调用onUnbind()方法取消绑定,Service也是不会终止的!
+  * 得出的结论: 假如我们使用bindService来绑定一个启动的Service,注意是已经启动的Service!!! 系统只是将Service的内部IBinder对象传递给Activity,并不会将Service的生命周期 与Activity绑定,因此调用unBindService( )方法取消绑定时,Service也不会被销毁！
+```
+
+
+
+
+
+
 ```xml {.line-numbers}
 
 ```

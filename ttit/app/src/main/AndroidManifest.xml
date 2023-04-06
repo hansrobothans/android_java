@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Ttit"
         tools:targetApi="31">
+
         <activity
             android:name=".core.activity.P54_ThirdActivity"
             android:exported="false">
@@ -24,29 +25,28 @@
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Dialog">
             <intent-filter>
-                <action android:name="com.example.ttit.core.activity.P52_SecondActivity"/>
+                <action android:name="com.example.ttit.core.activity.P52_SecondActivity" />
 
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
-        </activity>
-
-<!--        1.演示 standard模式: A-standard-->
-<!--        2.演示 singleTop模式: A-standard B-singleTop-->
-<!--        3.演示 singleTask模式: A-singleTask  B-standard C-standard-->
-<!--        4.演示 singleInstance:  A-singleInstance  B-singleInstance-->
+        </activity> <!-- 1.演示 standard模式: A-standard -->
+        <!-- 2.演示 singleTop模式: A-standard B-singleTop -->
+        <!-- 3.演示 singleTask模式: A-singleTask  B-standard C-standard -->
+        <!-- 4.演示 singleInstance:  A-singleInstance  B-singleInstance -->
         <activity
             android:name=".core.taskstack.P58_Cactivity"
             android:exported="true"
-            android:launchMode="standard">
-        </activity>
+            android:launchMode="standard" />
         <activity
             android:name=".core.taskstack.P57_Bactivity"
             android:exported="true"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop" />
+
+        <service android:name=".core.service.P61_MyService1" />
+        <service android:name=".core.service.P62_MyService2" />
 
         <activity
-            android:name=".core.taskstack.P56_Aactivity"
+            android:name=".core.service.P62_Service2Activity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
