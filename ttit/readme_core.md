@@ -32,6 +32,7 @@
   - [两种方式注册广播：](#两种方式注册广播)
     - [动态注册](#动态注册)
     - [静态注册](#静态注册)
+- [ContentProvider(内容提供者)](#contentprovider内容提供者)
 
 # Activity
 * 官方解释：  
@@ -366,7 +367,13 @@ protected void onDestroy() {
 </receiver>
 ```
 
-
+# ContentProvider(内容提供者)
+ContentProvider应用场景：  
+  * 我们想在自己的应用中访问别的应用，或者说一些ContentProvider暴露给我们的一些数据， 比如手机联系人，短信等！我们想对这些数据进行读取或者修改，这就需要用到ContentProvider了！  
+  * 我们自己的应用，想把自己的一些数据暴露出来，给其他的应用进行读取或操作，我们也可以用到ContentProvider，另外我们可以选择要暴露的数据，就避免了我们隐私数据的的泄露！   
+   
+ContentProvider概念讲解    
+![ContentProvider概念](./image/ContentProvider概念.png)  
 
 ```xml {.line-numbers}
 
