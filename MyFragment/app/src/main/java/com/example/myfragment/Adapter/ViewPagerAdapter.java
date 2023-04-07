@@ -11,8 +11,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myfragment.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //4. 新建ViewPagerAdapter类
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder> {
+//    8.新建适配数据列表
+    private List<String> titles = new ArrayList<String>();
+
+//    9.新建构造类，填充适配数据
+    public ViewPagerAdapter() {
+        titles.add("hello_0");
+        titles.add("hello_1");
+        titles.add("hello_2");
+        titles.add("hello_3");
+        titles.add("hello_4");
+
+    }
+
     @NonNull
     @Override
     public ViewPagerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -24,12 +40,13 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
 //    把数据传进来展示不同界面
     @Override
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
-
+//        10.根据position填充不同数据
+        holder.mTv.setText(titles.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return titles.size();
     }
 
     //    5. 解析layout数据
