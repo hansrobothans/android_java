@@ -20,7 +20,7 @@
         <activity android:name=".T01_BluetoothSPP" />
 
 
-        <activity android:name=".S040302_ActivityDataBack2" />
+
         <activity android:name=".S0404_HealthTag2" />
         <activity android:name=".S0604_TripCode2" />
     </application>
