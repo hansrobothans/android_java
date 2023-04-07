@@ -1,4 +1,4 @@
-package com.example.learnandroid;
+package com.example.mooc;
 
 import android.os.Bundle;
 import android.util.Log;
