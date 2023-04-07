@@ -48,7 +48,10 @@
   - [Fragment与Activity的交互](#fragment与activity的交互)
     - [main activity传递数据给fragment](#main-activity传递数据给fragment)
     - [fragment传递数据给main activity](#fragment传递数据给main-activity)
-- [](#)
+- [Handler消息传递机制](#handler消息传递机制)
+  - [Handler类的引入](#handler类的引入)
+  - [Handler的执行流程图](#handler的执行流程图)
+  - [Handler的相关方法](#handler的相关方法)
 
 # Activity
 * 官方解释：  
@@ -495,7 +498,43 @@ myFragment.setCallBack(new P67_MyFragment2.CallBack() {
 });
 ```
 
-# 
+# Handler消息传递机制
+Activity中UI组件中的信息传递Handler，Android为了线程安全，并不允许我们在UI线程外操作  
+UI；很多时候我们做界面刷新都需要通过Handler来通知UI组件更新  
+## Handler类的引入
+![Handler类的引入](./image/Handler类的引入.png)  
+## Handler的执行流程图
+![Handler的执行流程图](./image/Handler的执行流程图.png) 
+``` {.line-numbers}
+UI线程:就是我们的主线程,系统在创建UI线程的时候会初始化一个Looper对象,同时也会创建一个与其关联的MessageQueue;
+
+Handler:作用就是发送与处理信息,如果希望Handler正常工作,在当前线程中要有一个Looper对象
+
+Message:Handler接收与处理的消息对象
+
+MessageQueue:消息队列,先进先出管理Message,在初始化Looper对象时会创建一个与之关联的MessageQueue;
+
+Looper:每个线程只能够有一个Looper,管理MessageQueue,不断地从中取出Message分发给对应的Handler处理！
+```
+``` {.line-numbers}
+当我们的子线程想修改Activity中的UI组件时,我们可以新建一个Handler对象,通过这个对象向主线程发送信息;而我们发送的信息会先到主线程的MessageQueue进行等待,由Looper按先入先出顺序取出,再根据message对象的what属性分发给对应的Handler进行处理！
+```
+## Handler的相关方法
+```java {.line-numbers}
+void handleMessage(Message msg)//处理消息的方法,通常是用于被重写!
+sendEmptyMessage(int what)//发送空消息
+sendEmptyMessageDelayed(int what,long delayMillis)//指定延时多少毫秒后发送空信息 
+sendMessage(Message msg)//立即发送信息
+sendMessageDelayed(Message msg)//指定延时多少毫秒后发送信息
+final boolean hasMessage(int what)//检查消息队列中是否包含what属性为指定值的消息
+//如果是参数为(int what,Object object):除了判断what属性,还需要判断Object属性是否为指定对象的消息
+```
+
+
+
+
+
+
 ```xml {.line-numbers}
 
 ```
