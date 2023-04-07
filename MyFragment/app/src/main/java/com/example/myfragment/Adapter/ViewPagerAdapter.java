@@ -18,7 +18,8 @@ import java.util.List;
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder> {
 //    8.新建适配数据列表
     private List<String> titles = new ArrayList<>();
-
+//    11.新建颜色列表
+    private List<Integer> colors = new ArrayList<>();
 
 //    9.新建构造类，填充适配数据
     public ViewPagerAdapter() {
@@ -28,6 +29,12 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
         titles.add("hello_3");
         titles.add("hello_4");
 
+//        12.填充颜色数据
+        colors.add(R.color.white);
+        colors.add(R.color.red);
+        colors.add(R.color.white);
+        colors.add(R.color.red);
+        colors.add(R.color.white);
     }
 
     @NonNull
@@ -43,6 +50,10 @@ public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.View
     public void onBindViewHolder(@NonNull ViewPagerViewHolder holder, int position) {
 //        10.根据position填充不同数据
         holder.mTv.setText(titles.get(position));
+//        13.设置背景颜色
+//        holder.mContainer.setBackgroundColor(colors.get(position));
+        holder.mContainer.setBackgroundResource(colors.get(position));
+
     }
 
     @Override
