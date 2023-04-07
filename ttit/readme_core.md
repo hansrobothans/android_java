@@ -52,6 +52,7 @@
   - [Handler类的引入](#handler类的引入)
   - [Handler的执行流程图](#handler的执行流程图)
   - [Handler的相关方法](#handler的相关方法)
+  - [Looper](#looper)
 
 # Activity
 * 官方解释：  
@@ -529,7 +530,8 @@ sendMessageDelayed(Message msg)//指定延时多少毫秒后发送信息
 final boolean hasMessage(int what)//检查消息队列中是否包含what属性为指定值的消息
 //如果是参数为(int what,Object object):除了判断what属性,还需要判断Object属性是否为指定对象的消息
 ```
-
+## Looper
+要接收消息，必须有Looper类
 
 
 
