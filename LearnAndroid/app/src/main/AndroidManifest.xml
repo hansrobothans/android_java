@@ -22,7 +22,7 @@
 
 
 
-        <activity android:name=".S0604_TripCode2" />
+
     </application>
 
 </manifest>

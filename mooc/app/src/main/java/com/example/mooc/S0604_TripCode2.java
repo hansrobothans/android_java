@@ -1,14 +1,11 @@
-package com.example.learnandroid;
+package com.example.mooc;
 //应用功能讲解
 //当输入数字1的时候,按下测试按钮,这个时候,模拟一个从网络上获取行程轨迹的过程.会出现进度条,当进度条到达百分之百的时候,会出现绿色的行程轨迹码
 //当输入数字0,会出现黄色行程轨迹码
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;

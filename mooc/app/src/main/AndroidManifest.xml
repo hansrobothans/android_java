@@ -17,8 +17,9 @@
         <activity android:name=".S040301_ActivityDataTransfer2" />
         <activity android:name=".S040302_ActivityDataBack2" />
         <activity android:name=".S0404_HealthTag2" />
+        <activity android:name=".S0604_TripCode2" />
         <activity
-            android:name=".S0603_RunOnUiThread"
+            android:name=".S0604_TripCode"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
