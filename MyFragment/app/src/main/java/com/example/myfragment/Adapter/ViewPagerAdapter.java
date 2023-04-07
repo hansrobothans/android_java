@@ -17,7 +17,8 @@ import java.util.List;
 //4. 新建ViewPagerAdapter类
 public class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewPagerViewHolder> {
 //    8.新建适配数据列表
-    private List<String> titles = new ArrayList<String>();
+    private List<String> titles = new ArrayList<>();
+
 
 //    9.新建构造类，填充适配数据
     public ViewPagerAdapter() {
