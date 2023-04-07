@@ -19,7 +19,7 @@
         <activity android:name=".S0404_HealthTag2" />
         <activity android:name=".S0604_TripCode2" />
         <activity
-            android:name=".S0702_ListViewTest"
+            android:name=".S0704_ViewPagerTest"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

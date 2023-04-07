@@ -1,12 +1,11 @@
-package com.example.learnandroid;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.LayoutInflaterFactory;
-import androidx.viewpager.widget.ViewPager;
-
+package com.example.mooc;
+//左右滑动切换page
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 import java.util.List;

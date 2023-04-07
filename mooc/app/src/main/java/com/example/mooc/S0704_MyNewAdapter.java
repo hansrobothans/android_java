@@ -1,4 +1,4 @@
-package com.example.learnandroid;
+package com.example.mooc;
 
 import android.view.View;
 import android.view.ViewGroup;
