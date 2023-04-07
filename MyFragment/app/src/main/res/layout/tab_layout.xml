@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/tab"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:layout_margin="-1.0dip"
+    android:background="@color/gray"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:id="@id/device_lay"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@id/device_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_tab_devices" />
+
+        <TextView
+            android:id="@id/device_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="设备连接"
+            android:textAlignment="center"
+            android:textSize="10.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/talk_lay"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@id/talk_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_tab_talk" />
+
+        <TextView
+            android:id="@id/talk_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="对话模式"
+            android:textAlignment="center"
+            android:textSize="10.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/portrait_lay"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@id/portrait_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_tab_portrait" />
+
+        <TextView
+            android:id="@id/portrait_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="专业调试"
+            android:textAlignment="center"
+            android:textSize="10.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/button_lay"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@id/button_img"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1.0"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_tab_button" />
+
+        <TextView
+            android:id="@id/button_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="按钮控制"
+            android:textAlignment="center"
+            android:textSize="10.0sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/settings_lay"
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="1.0"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5.0dip">
+
+        <ImageView
+            android:id="@id/settings_img"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_weight="1.0"
+            android:padding="3.0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/selector_tab_settings" />
+
+        <TextView
+            android:id="@id/settings_tv"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="设置"
+            android:textAlignment="center"
+            android:textSize="10.0sp" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="button_lay" />
+    <item type="id" name="button_img" />
+    <item type="id" name="button_tv" />
+
+    <item type="id" name="device_lay" />
+    <item type="id" name="device_img" />
+    <item type="id" name="device_tv" />
+
+    <item type="id" name="portrait_lay" />
+    <item type="id" name="portrait_img" />
+    <item type="id" name="portrait_tv" />
+
+    <item type="id" name="tab" />
+
+    <item type="id" name="settings_lay" />
+    <item type="id" name="settings_img" />
+    <item type="id" name="settings_tv" />
+    <item type="id" name="talk_lay" />
+    <item type="id" name="talk_img" />
+    <item type="id" name="talk_tv" />
+</resources>
