@@ -16,8 +16,9 @@
         <activity android:name=".S0402_ActivityLifeCycle2" />
         <activity android:name=".S040301_ActivityDataTransfer2" />
         <activity android:name=".S040302_ActivityDataBack2" />
+        <activity android:name=".S0404_HealthTag2" />
         <activity
-            android:name=".S040302_ActivityDataBack"
+            android:name=".S0404_HealthTag"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

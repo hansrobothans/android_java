@@ -21,7 +21,7 @@
 
 
 
-        <activity android:name=".S0404_HealthTag2" />
+
         <activity android:name=".S0604_TripCode2" />
     </application>
 
