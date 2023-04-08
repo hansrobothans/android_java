@@ -25,7 +25,7 @@ fragmentStatePagerAdapter
 #  getLifecycle()是安卓中非常重要的jetpack组件里的 
 mv vm模式：jetpack
 
-
+ 
 
 
 
