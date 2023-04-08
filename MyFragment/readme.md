@@ -18,6 +18,7 @@ implementation 'androidx.viewpager2:viewpager2:1.0.0'
 ViewPager要使用，必须定义它自己adapter
 
 # P14-P15 ViewPager2与Fragment
+ButtonNavigationView也可实现
 ## ViewPager2提供的adapter
 fragmentPagerAdapter
 fragmentStatePagerAdapter
