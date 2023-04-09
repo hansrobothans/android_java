@@ -1,304 +1,388 @@
 package com.example.bluetoothspp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.bluetooth.BluetoothDevice;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Button;
+import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bluetoothspp.bluetooth.BluetoothDeviceListActivity;
-import com.example.bluetoothspp.bluetooth.BluetoothUtils;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
-import java.util.Objects;
+import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
-    private static final int REQUEST_CONNECT_DEVICE = 1;
-    public static final int BT_ENABLE_TRUE = 123456;
-    public static final int BT_ENABLE_FALSE = 654321;
-    public static BluetoothUtils bluetoothUtils;
-
-    public Handler mHandler;
-//    AsrInit asrInit;
-    //    private TextView showResults;
-    private boolean isBTAvailable;
-    private Button bt_startListen;
+public class MainActivity extends AppCompatActivity implements BLESPPUtils.OnBluetoothAction, View.OnClickListener {
+    // 蓝牙工具
+    private BLESPPUtils mBLESPPUtils;
+    // 保存搜索到的设备，避免重复
+    private ArrayList<BluetoothDevice> mDevicesList = new ArrayList<>();
+    // 对话框控制
+    private DeviceDialogCtrl mDeviceDialogCtrl;
+    // log 视图
+    private TextView mLogTv;
+    // 输入的 ET
+    private EditText mInputET;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 申请权限
+        initPermissions();
+        // 绑定视图
+        findViewById(R.id.btn_send).setOnClickListener(this);
+        mLogTv = findViewById(R.id.tv_log);
+        mInputET = findViewById(R.id.ed_input);
 
-        bluetoothUtils = new BluetoothUtils();
-        isBTAvailable = bluetoothUtils.isBlueToothAvailable();
-        if (!isBTAvailable) {
-            Toast.makeText(this, "蓝牙是不可用的", Toast.LENGTH_LONG).show();
-        }
+        // 初始化
+        mBLESPPUtils = new BLESPPUtils(this, this);
+        // 启用日志输出
+        mBLESPPUtils.enableBluetooth();
+        // 设置接收停止标志位字符串
+        mBLESPPUtils.setStopString("\r\n");
+        // 用户没有开启蓝牙的话打开蓝牙
+        if (!mBLESPPUtils.isBluetoothEnable()) mBLESPPUtils.enableBluetooth();
+        // 启动工具类
+        mBLESPPUtils.onCreate();
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
-//        mHandler = new Handler() {
-//            @Override
-//            public void handleMessage(@NonNull Message msg) {
-//                super.handleMessage(msg);
-//                if (msg.what == BT_ENABLE_TRUE) {
-//                    setBtEnabled(true);
-//                } else if (msg.what == BT_ENABLE_FALSE) {
-//                    setBtEnabled(false);
-//                }
-//            }
-//        };
-
-        mHandler = new Handler(new Handler.Callback() {
-            @Override
-            public boolean handleMessage(@NonNull Message message) {
-                if (message.what == BT_ENABLE_TRUE) {
-                    setBtEnabled(true);
-                } else if (message.what == BT_ENABLE_FALSE) {
-                    setBtEnabled(false);
-                }
-                return false;
-            }
-        });
-
-
-//        设置语音识别的
-        /*****************************************************/
-//        asrInit = new AsrInit(MainActivity.this, mHandler);
-//        asrInit.init();
-
-//        showResults = findViewById(R.id.textView);
-        bt_startListen = findViewById(R.id.bt_startListen);
-
-        bt_startListen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                asrInit.startRecord();
-            }
-        });
-        /*****************************************************/
-
-//        按下上键响应
-        findViewById(R.id.bt_up).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONA");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                view.performClick();
-                return false;
-            }
-        });
-
-//        按下下键响应
-        findViewById(R.id.bt_down).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONB");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                view.performClick();
-                return false;
-            }
-        });
-
-//        按下左键响应
-        findViewById(R.id.bt_left).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONC");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                return false;
-            }
-        });
-
-//        按下右键响应
-        findViewById(R.id.bt_right).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("OND");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                return false;
-            }
-        });
-
-//        按下停止键响应
-        findViewById(R.id.bt_stop).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                return false;
-            }
-        });
-
-//        按下声音键响应
-        findViewById(R.id.bt_sound).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONM");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                return false;
-            }
-        });
-
-//        按下灯键响应
-        findViewById(R.id.bt_led).setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONL");
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP && bluetoothUtils.isConnected()) {
-                    bluetoothUtils.write("ONF");
-                }
-                return false;
-            }
-        });
-
-
-        findViewById(R.id.bt_bluetooth).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-//                判断蓝牙是否可用
-                if (!isBTAvailable) {
-                    Toast.makeText(MainActivity.this, "蓝牙是不可用的", Toast.LENGTH_LONG).show();
-                } else {
-//                    如果可用
-                    String[] items = new String[]{"打开蓝牙", "连接蓝牙", "断开蓝牙"};
-                    AlertDialog dialog;
-                    AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this).setItems(items, new DialogInterface.OnClickListener() {
-//                        AlertDialog item响应事件
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            switch (i) {
-                                case 0:   //打开蓝牙
-                                    bluetoothUtils.openBlueTooth(MainActivity.this);
-                                    break; //可选
-                                case 1:  //连接蓝牙
-                                    if (!isBTAvailable) {
-                                        Toast.makeText(MainActivity.this, "蓝牙是不可用的", Toast.LENGTH_LONG)
-                                                .show();
-                                    } else if (!bluetoothUtils.getBluetoothAdapter().isEnabled()) {
-                                        Toast.makeText(MainActivity.this, "未打开蓝牙", Toast.LENGTH_SHORT)
-                                                .show();
-                                    } else {
-                                        Intent serverIntent = new Intent(MainActivity.this,
-                                                BluetoothDeviceListActivity.class);   //跳转到蓝牙扫描连接页面
-                                        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-                                    }
-                                    break; //可选
-                                case 2:// 断开连接
-                                    if (!bluetoothUtils.isConnected()) {
-                                        Toast.makeText(MainActivity.this, "无连接", Toast.LENGTH_SHORT)
-                                                .show();
-                                    } else {
-                                        Toast.makeText(MainActivity.this, "已断开连接", Toast.LENGTH_SHORT)
-                                                .show();
-                                        bluetoothUtils.cancelConnect();
-                                    }
-                                    break;
-                                default: //可选
-                                    //语句
-                            }
-                        }
-                    });
-                    dialog = builder.create();
-                    dialog.show();
-                }
-            }
-        });
-    }
-
-    //获取蓝牙设备名，并进行蓝牙连接
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CONNECT_DEVICE) {
-            // 当DeviceListActivity返回与设备连接的消息
-            if (resultCode == Activity.RESULT_OK) {
-                // 得到链接设备的MAC
-                String address = Objects.requireNonNull(data.getExtras()).getString(
-                        BluetoothDeviceListActivity.EXTRA_DEVICE_ADDRESS, "");
-                // 得到BluetoothDevice对象
-                if (!TextUtils.isEmpty(address)) {
-                    BluetoothDevice device = bluetoothUtils.getBluetoothAdapter().getRemoteDevice(address);
-                    boolean conSt = bluetoothUtils.connectThread(device);
-                    if (conSt) {
-                        Toast.makeText(MainActivity.this, "连接成功", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(MainActivity.this, "连接失败", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        }
-    }
-
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        Log.i(TAG, "onBackPressed() : finish()");
-        finish();
-    }
-
-    private void reset() {
-//        asrInit.cancelListening();
-//        setBtEnabled(true);
-        bt_startListen.setEnabled(true);
-//        showResult.setText("");
-    }
-
-    @Override
-    protected void onPause() {
-        Log.d(TAG, "onPause() ");
-        super.onPause();
-    }
-
-    @Override
-    protected void onStop() {
-        Log.d(TAG, "onStop() ");
-        super.onStop();
-        reset();
+        mDeviceDialogCtrl = new DeviceDialogCtrl(this);
+        mDeviceDialogCtrl.show();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        asrInit.destroyEngine();
+        mBLESPPUtils.onDestroy();
     }
 
-    public void setBtEnabled(boolean isEnabled) {
-        bt_startListen.setEnabled(isEnabled);
+    /**
+     * 申请运行时权限，不授予会搜索不到设备
+     */
+    private void initPermissions() {
+        String[] PERMISSIONS_STORAGE = {
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_PRIVILEGED
+        };
+        String[] PERMISSIONS_LOCATION = {
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_PRIVILEGED
+        };
+        int permission1 = ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        int permission2 = ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_SCAN);
+        if (permission1 != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_STORAGE,
+                    1
+            );
+        } else if (permission2 != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                    this,
+                    PERMISSIONS_LOCATION,
+                    1
+            );
+        }
+//        if (ContextCompat.checkSelfPermission(this, "android.permission-group.LOCATION") != 0) {
+//            ActivityCompat.requestPermissions(
+//                    this,
+//                    new String[]{
+//                            "android.permission.ACCESS_FINE_LOCATION",
+//                            "android.permission.ACCESS_COARSE_LOCATION",
+//                            "android.permission.ACCESS_WIFI_STATE"},
+//                    1
+//            );
+//        }
     }
+
+    /**
+     * 当发现新设备
+     *
+     * @param device 设备
+     */
+    @Override
+    public void onFoundDevice(BluetoothDevice device) {
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+
+        }
+        Log.d("BLE", "发现设备 " + device.getName() + device.getAddress());
+        // 判断是不是重复的
+        for (int i = 0; i < mDevicesList.size(); i++) {
+            if (mDevicesList.get(i).getAddress().equals(device.getAddress())) return;
+        }
+        // 添加，下次有就不显示了
+        mDevicesList.add(device);
+        // 添加条目到 UI 并设置点击事件
+        mDeviceDialogCtrl.addDevice(device, new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View v) {
+                BluetoothDevice clickDevice = (BluetoothDevice) v.getTag();
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                postShowToast("开始连接:" + clickDevice.getName());
+                mLogTv.setText(mLogTv.getText() + "\n" + "开始连接:" + clickDevice.getName());
+                mBLESPPUtils.connect(clickDevice);
+            }
+        });
+    }
+
+    /**
+     * 当连接成功
+     *
+     * @param device 设备
+     */
+    @Override
+    public void onConnectSuccess(final BluetoothDevice device) {
+        postShowToast("连接成功", new DoSthAfterPost() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void doIt() {
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+
+                }
+                mLogTv.setText(
+                        mLogTv.getText() + "\n连接成功:" + device.getName() + " | " + device.getAddress()
+                );
+                mDeviceDialogCtrl.dismiss();
+            }
+        });
+    }
+
+    /**
+     * 当连接失败
+     *
+     * @param msg 失败信息
+     */
+    @Override
+    public void onConnectFailed(final String msg) {
+        postShowToast("连接失败:" + msg, new DoSthAfterPost() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void doIt() {
+                mLogTv.setText(mLogTv.getText() + "\n连接失败:" + msg);
+            }
+        });
+    }
+
+    /**
+     * 当接收到 byte 数组
+     *
+     * @param bytes 内容
+     */
+    @Override
+    public void onReceiveBytes(final byte[] bytes) {
+        postShowToast("收到数据:" + new String(bytes), new DoSthAfterPost() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void doIt() {
+                mLogTv.setText(mLogTv.getText() + "\n收到数据:" + new String(bytes));
+            }
+        });
+    }
+
+    /**
+     * 当调用接口发送 byte 数组
+     *
+     * @param bytes 内容
+     */
+    @Override
+    public void onSendBytes(final byte[] bytes) {
+        postShowToast("发送数据:" + new String(bytes), new DoSthAfterPost() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void doIt() {
+                mLogTv.setText(mLogTv.getText() + "\n发送数据:" + new String(bytes));
+            }
+        });
+    }
+
+    /**
+     * 当结束搜索设备
+     */
+    @Override
+    public void onFinishFoundDevice() { }
+
+    /**
+     * 按钮的点击事件
+     *
+     * @param v 点击的按钮
+     */
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_send) {
+            mBLESPPUtils.send((mInputET.getText().toString() + "\n").getBytes());
+        }
+    }
+
+    /**
+     * 设备选择对话框控制
+     */
+    private class DeviceDialogCtrl {
+        private LinearLayout mDialogRootView;
+        private ProgressBar mProgressBar;
+        private AlertDialog mConnectDeviceDialog;
+
+        DeviceDialogCtrl(Context context) {
+            // 搜索进度条
+            mProgressBar = new ProgressBar(context, null, android.R.attr.progressBarStyleHorizontal);
+            mProgressBar.setLayoutParams(
+                    new LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            50
+                    )
+            );
+
+            // 根布局
+            mDialogRootView = new LinearLayout(context);
+            mDialogRootView.setOrientation(LinearLayout.VERTICAL);
+            mDialogRootView.addView(mProgressBar);
+            mDialogRootView.setMinimumHeight(700);
+
+            // 容器布局
+            ScrollView scrollView = new ScrollView(context);
+            scrollView.addView(mDialogRootView,
+                    new FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            700
+                    )
+            );
+
+            // 构建对话框
+            mConnectDeviceDialog = new AlertDialog
+                    .Builder(context)
+                    .setNegativeButton("刷新", null)
+                    .setPositiveButton("退出", null)
+                    .create();
+            mConnectDeviceDialog.setTitle("选择连接的蓝牙设备");
+            mConnectDeviceDialog.setView(scrollView);
+            mConnectDeviceDialog.setCancelable(false);
+        }
+
+        /**
+         * 显示并开始搜索设备
+         */
+        void show() {
+            initPermissions();
+            mBLESPPUtils.startDiscovery();
+            mConnectDeviceDialog.show();
+            mConnectDeviceDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    mConnectDeviceDialog.dismiss();
+                    return false;
+                }
+            });
+            mConnectDeviceDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mConnectDeviceDialog.dismiss();
+                    finish();
+                }
+            });
+            mConnectDeviceDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mDialogRootView.removeAllViews();
+                    mDialogRootView.addView(mProgressBar);
+                    mDevicesList.clear();
+                    mBLESPPUtils.startDiscovery();
+                }
+            });
+        }
+
+        /**
+         * 取消对话框
+         */
+        void dismiss() {
+            mConnectDeviceDialog.dismiss();
+        }
+
+        /**
+         * 添加一个设备到列表
+         * @param device 设备
+         * @param onClickListener 点击回调
+         */
+        private void addDevice(final BluetoothDevice device, final View.OnClickListener onClickListener) {
+            runOnUiThread(new Runnable() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void run() {
+                    TextView devTag = new TextView(MainActivity.this);
+                    devTag.setClickable(true);
+                    devTag.setPadding(20,20,20,20);
+                    devTag.setBackgroundResource(R.drawable.rect_round_button_ripple);
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
+
+                    }
+                    devTag.setText(device.getName() + "\nMAC:" + device.getAddress());
+                    devTag.setTextColor(Color.WHITE);
+                    devTag.setOnClickListener(onClickListener);
+                    devTag.setTag(device);
+                    devTag.setLayoutParams(
+                            new LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
+                    );
+                    ((LinearLayout.LayoutParams) devTag.getLayoutParams()).setMargins(
+                            20, 20, 20, 20);
+                    mDialogRootView.addView(devTag);
+                }
+            });
+        }
+    }
+
+    /**
+     * 在主线程弹出 Toast
+     *
+     * @param msg 信息
+     */
+    private void postShowToast(final String msg) {
+        postShowToast(msg, null);
+    }
+
+    /**
+     * 在主线程弹出 Toast
+     *
+     * @param msg 信息
+     * @param doSthAfterPost 在弹出后做点什么
+     */
+    private void postShowToast(final String msg, final DoSthAfterPost doSthAfterPost) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                if (doSthAfterPost != null) doSthAfterPost.doIt();
+            }
+        });
+    }
+
+    private interface DoSthAfterPost {
+        void doIt();
+    }
+
 }
