@@ -21,6 +21,35 @@ public class AdapterBluetoothSPPScan extends BaseAdapter {
         this.mContext = mContext;
     }
 
+    //    清空所有内容
+    public void clear() {
+        mData.clear();
+    }
+
+    /**
+     * 添加item数据
+     */
+    public void addData(ItemBluetoothSPPScan mData) {
+//        if (mData != null)
+//        添加数据
+        this.mData.add(mData);
+    }
+
+    //    移除item数据
+    public void delData() {
+        if (mData != null && mData.size() > 0)
+//            移除最后一条数据
+            mData.remove(mData.size() - 1);
+    }
+
+    //    移除第position条item数据
+    public void delData(int position) {
+        if (position <= mData.size())
+//            移除指定位置数据
+            mData.remove(position);
+    }
+
+
     //    必须写，系统会去调用。如果返回0，无论传进去多少条item，系统都不会显示
     @Override
     public int getCount() {
@@ -67,7 +96,7 @@ public class AdapterBluetoothSPPScan extends BaseAdapter {
 //        return convertView;
 //    }
 
-//    BaseAdapter 优化
+    //    BaseAdapter 优化
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 //        第一次调用，convertView是空的
@@ -97,4 +126,6 @@ public class AdapterBluetoothSPPScan extends BaseAdapter {
         TextView name;
         TextView address;
     }
+
+
 }

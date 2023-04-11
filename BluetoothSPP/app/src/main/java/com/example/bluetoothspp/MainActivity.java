@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -15,13 +16,15 @@ import com.example.bluetoothspp.entity.ItemBluetoothSPPScan;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-//    声明一个ItemBluetoothSPPScan类型的数组
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    //    声明一个ItemBluetoothSPPScan类型的数组
     private List<ItemBluetoothSPPScan> mData = null;
     private AdapterBluetoothSPPScan mAdapter = null;
-//    声明ListView控件
+    //    声明ListView控件
     private ListView listView;
-//    上下文
+    //    声明扫描按钮控件
+    private ImageView btAddNew;
+    //    上下文
     private Context mContext;
 
     @Override
@@ -32,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         mContext = this;
 //        绑定控件
         listView = (ListView) findViewById(R.id.listview);
+        btAddNew = (ImageView) findViewById(R.id.bt_start_scan);
+
+//        绑定点击事件
+        btAddNew.setOnClickListener(this);
+
 
 //        手动生成数据
         mData = new ArrayList<ItemBluetoothSPPScan>();
@@ -62,5 +70,34 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    //    点击刷新按钮,刷新listview
+    @Override
+    public void onClick(View v) {
+//        点击开始扫描按钮
+        if (v.getId() == R.id.bt_start_scan) {
+////            清除数据
+//            mData.clear();
+////            删除所有视图
+//            listView.removeAllViewsInLayout();
+//            for (int i = 10; i < 20; i++) {
+//                mData.add(new ItemBluetoothSPPScan("Name" + i, "Address" + i));
+//            }
+//            mAdapter = new AdapterBluetoothSPPScan(mData, mContext);
+//            listView.setAdapter(mAdapter);
+
+//            清除Adapter数据
+            mAdapter.clear();
+//            通知Adapter数据更改
+//            mAdapter.notifyDataSetChanged();
+            for (int i = 10; i < 20; i++) {
+                mAdapter.addData(new ItemBluetoothSPPScan("Name" + i, "Address" + i));
+            }
+//            通知Adapter数据更改
+            mAdapter.notifyDataSetChanged();
+        }
+
+
     }
 }
