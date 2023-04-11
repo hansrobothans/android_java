@@ -300,7 +300,7 @@ public class BLESPPUtils {
      *
      * @param device 设备
      */
-    void connect(BluetoothDevice device) {
+    public void connect(BluetoothDevice device) {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
 
         }

@@ -83,6 +83,9 @@ public class MainActivity extends AppCompatActivity implements BLESPPUtils.OnBlu
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Toast.makeText(mContext, "点击了第" + position + "条数据", Toast.LENGTH_SHORT).show();
+                ItemBluetoothSPPScan device = (ItemBluetoothSPPScan) mAdapter.getItem(position);
+//                device.getDevice();
+                mBLESPPUtils.connect(device.getDevice());
             }
         });
     }
