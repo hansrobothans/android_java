@@ -43,7 +43,8 @@ class BLESPPUtils {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                if (mOnBluetoothAction != null) mOnBluetoothAction.onFoundDevice(device);
+                if (mOnBluetoothAction != null)
+                    mOnBluetoothAction.onFoundDevice(device);
             }
         }
     };
@@ -55,7 +56,8 @@ class BLESPPUtils {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
             if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)) {
-                if (mOnBluetoothAction != null) mOnBluetoothAction.onFinishFoundDevice();
+                if (mOnBluetoothAction != null)
+                    mOnBluetoothAction.onFinishFoundDevice();
             }
         }
     };
@@ -282,12 +284,14 @@ class BLESPPUtils {
 
     /**
      * 开始搜索
+     * 如果正在开始搜索，就停止搜索
      */
     void startDiscovery() {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
 
         }
-        if (mBluetoothAdapter.isDiscovering()) mBluetoothAdapter.cancelDiscovery();
+        if (mBluetoothAdapter.isDiscovering())
+            mBluetoothAdapter.cancelDiscovery();
         mBluetoothAdapter.startDiscovery();
     }
 

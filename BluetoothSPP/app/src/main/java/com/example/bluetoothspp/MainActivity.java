@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements BLESPPUtils.OnBlu
         mBLESPPUtils.setStopString("\r\n");
         // 用户没有开启蓝牙的话打开蓝牙
         if (!mBLESPPUtils.isBluetoothEnable()) mBLESPPUtils.enableBluetooth();
+
         // 启动工具类
         mBLESPPUtils.onCreate();
 
@@ -376,7 +377,8 @@ public class MainActivity extends AppCompatActivity implements BLESPPUtils.OnBlu
             @Override
             public void run() {
                 Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                if (doSthAfterPost != null) doSthAfterPost.doIt();
+                if (doSthAfterPost != null)
+                    doSthAfterPost.doIt();
             }
         });
     }
