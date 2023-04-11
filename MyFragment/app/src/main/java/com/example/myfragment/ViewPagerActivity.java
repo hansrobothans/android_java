@@ -15,11 +15,11 @@ public class ViewPagerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pager_main);
 
-//        1. 新建布局对象并绑定
+//        新建布局对象并绑定
         ViewPager2 viewPager = findViewById(R.id.viewPager);
-//        3. 新建adapter。需要有ViewPagerAdapter类，所以新建一个类
+//        新建adapter。需要有ViewPagerAdapter类，所以新建一个类
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter();
-//        2. 设置适配器，需要viewPager的adapter，所以需要新建adapter。
+//        设置适配器，需要viewPager的adapter，所以需要新建adapter。
         viewPager.setAdapter(viewPagerAdapter);
     }
 }
