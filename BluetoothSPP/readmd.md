@@ -214,8 +214,13 @@ if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permiss
 ```
 2. 在DeviceDialogCtrl类show方法第一行显示调用
 
+## V1.1.1
+修改一些注释
 
 
+## V1.1.2
+在空白的基础上从V1.1.1移植过来  
+自己新建蓝牙刷新的界面  
 ```java {.line-numbers}
 
 ```
